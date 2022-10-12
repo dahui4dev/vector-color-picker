@@ -119,7 +119,7 @@ export default class SelectParams extends React.Component {
   };
 
   handleAlphaHandler = (event) => {
-    let alpha = parseInt(event.target.value, 10);
+    let alpha = parseInt(event.target.value.replaceAll("%", ""), 10);
 
     if (isNaN(alpha)) {
       alpha = 0;
@@ -232,14 +232,7 @@ export default class SelectParams extends React.Component {
               />
             </div>
 
-            {enableAlpha && (
-              <input
-                type="number"
-                className={`${prefixCls}-value-alpha`}
-                value={Math.round(this.props.alpha)}
-                onChange={this.handleAlphaHandler}
-              />
-            )}
+            {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
       case "CSS":
@@ -279,14 +272,7 @@ export default class SelectParams extends React.Component {
               />
             </div>
 
-            {enableAlpha && (
-              <input
-                type="number"
-                className={`${prefixCls}-value-alpha`}
-                value={Math.round(this.props.alpha)}
-                onChange={this.handleAlphaHandler}
-              />
-            )}
+            {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
       case "HSL":
@@ -313,14 +299,7 @@ export default class SelectParams extends React.Component {
               />
             </div>
 
-            {enableAlpha && (
-              <input
-                type="number"
-                className={`${prefixCls}-value-alpha`}
-                value={Math.round(this.props.alpha)}
-                onChange={this.handleAlphaHandler}
-              />
-            )}
+            {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
       case "HSB":
@@ -351,17 +330,23 @@ export default class SelectParams extends React.Component {
               />
             </div>
 
-            {enableAlpha && (
-              <input
-                type="number"
-                className={`${prefixCls}-value-alpha`}
-                value={Math.round(this.props.alpha)}
-                onChange={this.handleAlphaHandler}
-              />
-            )}
+            {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
     }
+  }
+
+  renderAlphaInput() {
+    const prefixCls = this.getPrefixCls();
+
+    return (
+      <input
+        type="text"
+        className={`${prefixCls}-value-alpha`}
+        value={Math.round(this.props.alpha) + "%"}
+        onChange={this.handleAlphaHandler}
+      />
+    );
   }
 }
 
