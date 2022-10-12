@@ -36,12 +36,12 @@ export default class SelectParams extends React.Component {
         [0, 255],
       ],
       HSL: [
-        [0, 255],
-        [0, 255],
-        [0, 255],
+        [0, 360],
+        [0, 100],
+        [0, 100],
       ],
       HSB: [
-        [0, 359],
+        [0, 360],
         [0, 100],
         [0, 100],
       ],
