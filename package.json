@@ -6,17 +6,17 @@
   "keywords": [
     "react",
     "react-component",
-    "react-color-picker",
+    "vector-color-picker",
     "color-picker"
   ],
-  "homepage": "http://github.com/react-component/color-picker",
-  "author": "noyobo <noyobo@gmail.com>",
+  "homepage": "https://github.com/dahui4dev/vector-color-picker",
+  "author": "dahui4dev <wangjianhui2464@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git@github.com:react-component/color-picker.git"
   },
   "bugs": {
-    "url": "http://github.com/react-component/color-picker/issues"
+    "url": "https://github.com/dahui4dev/vector-color-picker/issues"
   },
   "files": [
     "lib/",
