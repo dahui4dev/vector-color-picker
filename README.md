@@ -14,7 +14,7 @@
 ## Browser Support
 
 | ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) |
-|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | Chrome 31.0+ ✔                                                                           | Edge 12.0+ ✔                                                                       | Firefox 31.0+ ✔                                                                             | IE 10+ ✔                                                                                                                     | Opera 30.0+ ✔                                                                         | Safari 7.0+ ✔                                                                            |
 
 ## Screenshots
@@ -43,9 +43,9 @@ online example: [http://react-component.github.io/color-picker/](http://react-co
 ## Usage
 
 ```js
-var ColorPicker = require("vector-color-picker");
-var React = require("react");
-var ReactDOM = require("react-dom");
+var ColorPicker = require('vector-color-picker');
+var React = require('react');
+var ReactDOM = require('react-dom');
 ReactDOM.render(<ColorPicker />, container);
 ```
 
@@ -54,7 +54,7 @@ ReactDOM.render(<ColorPicker />, container);
 ### ColorPicker.props
 
 | name              | type                             | default                                               | description                                                              |
-|:------------------|:---------------------------------|:------------------------------------------------------|:-------------------------------------------------------------------------|
+| :---------------- | :------------------------------- | :---------------------------------------------------- | :----------------------------------------------------------------------- |
 | align             | Object: alignConfig of dom-align |                                                       | popup 's align config [dom-align](https://github.com/yiminghe/dom-align) |
 | alpha             | Number                           | `100`                                                 | opacity of the color                                                     |
 | animation         | String                           |                                                       | index.css support 'slide-up'                                             |
@@ -75,7 +75,7 @@ ReactDOM.render(<ColorPicker />, container);
 ### ColorPicker.Panel.props
 
 | name         | type     | default   | description                                    |
-|:-------------|:---------|:----------|:-----------------------------------------------|
+| :----------- | :------- | :-------- | :--------------------------------------------- |
 | alpha        | Number   | `100`     | opacity of the color                           |
 | className    | String   | `''`      | Additional class to be added to component      |
 | color        | String   | `#ff0000` | color board current background color           |

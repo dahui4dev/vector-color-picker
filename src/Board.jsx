@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import addEventListener from "rc-util/lib/Dom/addEventListener";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import addEventListener from 'rc-util/lib/Dom/addEventListener';
 
-import Color from "./helpers/color";
+import Color from './helpers/color';
 
 const WIDTH = 200;
 const HEIGHT = 150;
@@ -29,10 +29,10 @@ export default class Board extends React.Component {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({ x, y });
-    this.dragListener = addEventListener(window, "mousemove", this.onBoardDrag);
+    this.dragListener = addEventListener(window, 'mousemove', this.onBoardDrag);
     this.dragUpListener = addEventListener(
       window,
-      "mouseup",
+      'mouseup',
       this.onBoardDragEnd
     );
   };
@@ -47,12 +47,12 @@ export default class Board extends React.Component {
     this.pointMoveTo({ x, y });
     this.touchMoveListener = addEventListener(
       window,
-      "touchmove",
+      'touchmove',
       this.onBoardTouchMove
     );
     this.touchEndListener = addEventListener(
       window,
-      "touchend",
+      'touchend',
       this.onBoardTouchEnd
     );
   };

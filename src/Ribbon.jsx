@@ -12,7 +12,7 @@ export default class Ribbon extends React.Component {
     this.removeListeners();
   }
 
-  onMouseDown = e => {
+  onMouseDown = (e) => {
     const x = e.clientX;
     const y = e.clientY;
 
@@ -25,7 +25,7 @@ export default class Ribbon extends React.Component {
     this.dragUpListener = addEventListener(window, 'mouseup', this.onDragEnd);
   };
 
-  onDrag = e => {
+  onDrag = (e) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -34,7 +34,7 @@ export default class Ribbon extends React.Component {
     });
   };
 
-  onDragEnd = e => {
+  onDragEnd = (e) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -48,7 +48,7 @@ export default class Ribbon extends React.Component {
     return `${this.props.rootPrefixCls}-ribbon`;
   };
 
-  pointMoveTo = coords => {
+  pointMoveTo = (coords) => {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
@@ -79,12 +79,15 @@ export default class Ribbon extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
     const hue = this.props.color.hue;
-    const per = hue / 360 * 100;
+    const per = (hue / 360) * 100;
 
     return (
       <div className={prefixCls}>
         <span ref="point" style={{ left: `${per}%` }} />
-        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown} />
+        <div
+          className={`${prefixCls}-handler`}
+          onMouseDown={this.onMouseDown}
+        />
       </div>
     );
   }

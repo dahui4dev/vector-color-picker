@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Color from './helpers/color';
 
 export default class Preview extends React.Component {
-  onChange = e => {
+  onChange = (e) => {
     const value = e.target.value;
     const color = new Color(value);
     this.props.onChange(color);

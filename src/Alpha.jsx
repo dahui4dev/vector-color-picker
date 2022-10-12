@@ -16,7 +16,7 @@ export default class Alpha extends React.Component {
     this.removeListeners();
   }
 
-  onMouseDown = e => {
+  onMouseDown = (e) => {
     const x = e.clientX;
     const y = e.clientY;
 
@@ -29,7 +29,7 @@ export default class Alpha extends React.Component {
     this.dragUpListener = addEventListener(window, 'mouseup', this.onDragEnd);
   };
 
-  onDrag = e => {
+  onDrag = (e) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -38,7 +38,7 @@ export default class Alpha extends React.Component {
     });
   };
 
-  onDragEnd = e => {
+  onDragEnd = (e) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -50,7 +50,12 @@ export default class Alpha extends React.Component {
 
   getBackground = () => {
     const { red, green, blue } = this.props.color;
-    const opacityGradient = `linear-gradient(to right, ${rgbaColor(red, green, blue, 0)} , ${rgbaColor(red, green, blue, 100)})`; // eslint-disable-line max-len
+    const opacityGradient = `linear-gradient(to right, ${rgbaColor(
+      red,
+      green,
+      blue,
+      0
+    )} , ${rgbaColor(red, green, blue, 100)})`; // eslint-disable-line max-len
     return opacityGradient;
   };
 
@@ -58,7 +63,7 @@ export default class Alpha extends React.Component {
     return `${this.props.rootPrefixCls}-alpha`;
   };
 
-  pointMoveTo = coords => {
+  pointMoveTo = (coords) => {
     const rect = findDOMNode(this).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
@@ -66,7 +71,7 @@ export default class Alpha extends React.Component {
     left = Math.max(0, left);
     left = Math.min(left, width);
 
-    const alpha = Math.round(left / width * 100);
+    const alpha = Math.round((left / width) * 100);
 
     this.props.onChange(alpha);
   };
@@ -86,9 +91,16 @@ export default class Alpha extends React.Component {
     const prefixCls = this.getPrefixCls();
     return (
       <div className={prefixCls}>
-        <div ref="bg" className={`${prefixCls}-bg`} style={{ background: this.getBackground() }} />
+        <div
+          ref="bg"
+          className={`${prefixCls}-bg`}
+          style={{ background: this.getBackground() }}
+        />
         <span style={{ left: `${this.props.alpha}%` }} />
-        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown} />
+        <div
+          className={`${prefixCls}-handler`}
+          onMouseDown={this.onMouseDown}
+        />
       </div>
     );
   }

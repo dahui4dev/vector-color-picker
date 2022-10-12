@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Color from "./helpers/color";
+import Color from './helpers/color';
 
 /**
  * 吸管
@@ -20,7 +20,7 @@ export default class Absorption extends React.Component {
 
   render() {
     const prefixCls = this.getPrefixCls();
-    const hex = this.props.color.toHexString();
+    // const hex = this.props.color.toHexString();
     return (
       <div className={prefixCls}>
         <span
@@ -31,12 +31,12 @@ export default class Absorption extends React.Component {
             }
           }
         />
-        {/*<input*/}
+        {/* <input */}
         {/*  type="color"*/}
         {/*  value={hex}*/}
         {/*  onChange={this.onChange}*/}
         {/*  onClick={this.props.onInputClick}*/}
-        {/*/>*/}
+        {/* /> */}
       </div>
     );
   }

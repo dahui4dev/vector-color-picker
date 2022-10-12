@@ -6,6 +6,7 @@ export default class Color {
 
     this.initRgb();
     this.initHsb();
+    this.initHsl();
 
     const initAlpha = (input && input.alpha) || this.color.toRgb().a;
     this.alphaValue = Math.min(1, initAlpha) * 100;
@@ -29,6 +30,14 @@ export default class Color {
     this.hueValue = h;
     this.saturationValue = s;
     this.brightnessValue = v;
+  };
+
+  initHsl = () => {
+    const { h, s, l } = this.color.toHsl();
+
+    this.hueValue = h;
+    this.saturationValue = s;
+    this.lightnessValue = l;
   };
 
   toHexString = () => {
@@ -169,5 +178,8 @@ export default class Color {
 
   get HSB() {
     return [this.hue, this.saturation, this.brightness];
+  }
+  get HSL() {
+    return [this.hue, this.saturation, this.lightness];
   }
 }

@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
-import Color from "./helpers/color";
-import percentage from "./helpers/percentage";
+import Color from './helpers/color';
+import percentage from './helpers/percentage';
 
-const modesMap = ["RGB", "HSB"];
+const modesMap = ['RGB', 'HSB'];
 
 export default class Params extends React.Component {
   constructor(props) {
@@ -129,20 +129,20 @@ export default class Params extends React.Component {
     const { color } = this.props;
     const { mode } = this.state;
 
-    if (mode === "HSB") {
-      if (channel === "H") {
+    if (mode === 'HSB') {
+      if (channel === 'H') {
         color.hue = parseInt(value, 10);
-      } else if (channel === "S") {
+      } else if (channel === 'S') {
         color.saturation = parseInt(value, 10) / 100;
-      } else if (channel === "B") {
+      } else if (channel === 'B') {
         color.brightness = parseInt(value, 10) / 100;
       }
     } else {
-      if (channel === "R") {
+      if (channel === 'R') {
         color.red = parseInt(value, 10);
-      } else if (channel === "G") {
+      } else if (channel === 'G') {
         color.green = parseInt(value, 10);
-      } else if (channel === "B") {
+      } else if (channel === 'B') {
         color.blue = parseInt(value, 10);
       }
     }
@@ -175,7 +175,7 @@ export default class Params extends React.Component {
     const { mode, color } = this.state;
     const colorChannel = color[mode];
 
-    if (mode === "HSB") {
+    if (mode === 'HSB') {
       colorChannel[0] = parseInt(colorChannel[0], 10);
       colorChannel[1] = percentage(colorChannel[1]);
       colorChannel[2] = percentage(colorChannel[2]);

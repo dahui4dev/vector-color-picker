@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Color from "./helpers/color";
+import Color from './helpers/color';
 
-import Board from "./Board";
+import Board from './Board';
 // import Preview from "./Preview";
-import Absorption from "./Absorption";
-import Ribbon from "./Ribbon";
-import Alpha from "./Alpha";
+import Absorption from './Absorption';
+import Ribbon from './Ribbon';
+import Alpha from './Alpha';
 // import Params from "./Params";
-import SelectParams from "./SelectParams";
+import SelectParams from './SelectParams';
 
-import cx from "classnames";
+import cx from 'classnames';
 
 function noop() {}
 
@@ -20,7 +20,7 @@ export default class Panel extends React.Component {
     super(props);
 
     const alpha =
-      typeof props.alpha === "undefined"
+      typeof props.alpha === 'undefined'
         ? props.defaultAlpha
         : Math.min(props.alpha, props.defaultAlpha);
 
@@ -52,7 +52,7 @@ export default class Panel extends React.Component {
 
   onSystemColorPickerOpen = (e) => {
     // only work with browser which support color input
-    if (e.target.type === "color") {
+    if (e.target.type === 'color') {
       this.systemColorPickerOpen = true;
     }
   };
@@ -126,7 +126,7 @@ export default class Panel extends React.Component {
     return (
       <div
         ref={(ref) => (this.ref = ref)}
-        className={[prefixCls, this.props.className].join(" ")}
+        className={[prefixCls, this.props.className].join(' ')}
         style={this.props.style}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
@@ -186,7 +186,7 @@ export default class Panel extends React.Component {
   }
 }
 
-import typeColor from "./utils/validationColor";
+import typeColor from './utils/validationColor';
 
 Panel.propTypes = {
   alpha: PropTypes.number,
@@ -195,7 +195,7 @@ Panel.propTypes = {
   defaultAlpha: PropTypes.number,
   defaultColor: typeColor, // Hex string
   enableAlpha: PropTypes.bool,
-  mode: PropTypes.oneOf(["HEX", "CSS", "RGB", "HSL", "HSB"]),
+  mode: PropTypes.oneOf(['HEX', 'CSS', 'RGB', 'HSL', 'HSB']),
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
@@ -205,15 +205,15 @@ Panel.propTypes = {
 };
 
 Panel.defaultProps = {
-  className: "",
+  className: '',
   defaultAlpha: 100,
-  defaultColor: "#ff0000",
+  defaultColor: '#ff0000',
   enableAlpha: true,
-  mode: "RGB",
+  mode: 'RGB',
   onBlur: noop,
   onChange: noop,
   onFocus: noop,
   onMount: noop,
-  prefixCls: "vector-color-picker-panel",
+  prefixCls: 'vector-color-picker-panel',
   style: {},
 };

@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
-import Color from "./helpers/color";
-import percentage from "./helpers/percentage";
+import Color from './helpers/color';
+import percentage from './helpers/percentage';
 
-const modesMap = ["HEX", "CSS", "RGB", "HSL", "HSB"];
+const modesMap = ['HEX', 'CSS', 'RGB', 'HSL', 'HSB'];
 
 export default class SelectParams extends React.Component {
   constructor(props) {
@@ -119,7 +119,7 @@ export default class SelectParams extends React.Component {
   };
 
   handleAlphaHandler = (event) => {
-    let alpha = parseInt(event.target.value.replaceAll("%", ""), 10);
+    let alpha = parseInt(event.target.value.replaceAll('%', ''), 10);
 
     if (isNaN(alpha)) {
       alpha = 0;
@@ -134,20 +134,28 @@ export default class SelectParams extends React.Component {
     const { color } = this.props;
     const { mode } = this.state;
 
-    if (mode === "HSB") {
-      if (channel === "H") {
+    if (mode === 'HSB') {
+      if (channel === 'H') {
         color.hue = parseInt(value, 10);
-      } else if (channel === "S") {
+      } else if (channel === 'S') {
         color.saturation = parseInt(value, 10) / 100;
-      } else if (channel === "B") {
+      } else if (channel === 'B') {
         color.brightness = parseInt(value, 10) / 100;
       }
+    } else if (mode === 'HSL') {
+      if (channel === 'H') {
+        color.hue = parseInt(value, 10);
+      } else if (channel === 'S') {
+        color.saturation = parseInt(value, 10) / 100;
+      } else if (channel === 'L') {
+        color.lightness = parseInt(value, 10) / 100;
+      }
     } else {
-      if (channel === "R") {
+      if (channel === 'R') {
         color.red = parseInt(value, 10);
-      } else if (channel === "G") {
+      } else if (channel === 'G') {
         color.green = parseInt(value, 10);
-      } else if (channel === "B") {
+      } else if (channel === 'B') {
         color.blue = parseInt(value, 10);
       }
     }
@@ -179,38 +187,6 @@ export default class SelectParams extends React.Component {
     });
   };
 
-  render() {
-    const prefixCls = this.getPrefixCls();
-
-    const { enableAlpha } = this.props;
-    const { mode, color } = this.state;
-
-    const paramsClasses = cx({
-      [prefixCls]: true,
-      [`${prefixCls}-has-alpha`]: enableAlpha,
-    });
-
-    return (
-      <div className={paramsClasses}>
-        <div className={`${prefixCls}-type`}>
-          <select
-            className={`${prefixCls}-select`}
-            value={mode}
-            onChange={this.handleSelectChange}
-          >
-            <option value="HEX">HEX</option>
-            <option value="RGB">RGB</option>
-            <option value="CSS">CSS</option>
-            <option value="HSL">HSL</option>
-            <option value="HSB">HSB</option>
-          </select>
-
-          <div className={`${prefixCls}-value`}>{this.renderInput()}</div>
-        </div>
-      </div>
-    );
-  }
-
   renderInput() {
     const prefixCls = this.getPrefixCls();
     const { enableAlpha } = this.props;
@@ -218,7 +194,7 @@ export default class SelectParams extends React.Component {
     const colorChannel = color[mode];
 
     switch (mode) {
-      case "HEX":
+      case 'HEX':
         return (
           <React.Fragment>
             <div className={`${prefixCls}-value-hex`}>
@@ -235,7 +211,7 @@ export default class SelectParams extends React.Component {
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
-      case "CSS":
+      case 'CSS':
         return (
           <div className={`${prefixCls}-value-css`}>
             <input
@@ -248,7 +224,7 @@ export default class SelectParams extends React.Component {
             />
           </div>
         );
-      case "RGB":
+      case 'RGB':
         return (
           <React.Fragment>
             <div className={`${prefixCls}-value-rgb`}>
@@ -275,7 +251,11 @@ export default class SelectParams extends React.Component {
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
-      case "HSL":
+      case 'HSL':
+        colorChannel[0] = parseInt(colorChannel[0], 10);
+        colorChannel[1] = percentage(colorChannel[1]);
+        colorChannel[2] = percentage(colorChannel[2]);
+
         return (
           <React.Fragment>
             <div className={`${prefixCls}-value-hsl`}>
@@ -302,7 +282,7 @@ export default class SelectParams extends React.Component {
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
-      case "HSB":
+      case 'HSB':
         colorChannel[0] = parseInt(colorChannel[0], 10);
         colorChannel[1] = percentage(colorChannel[1]);
         colorChannel[2] = percentage(colorChannel[2]);
@@ -333,6 +313,9 @@ export default class SelectParams extends React.Component {
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
+
+      default:
+        return null;
     }
   }
 
@@ -343,9 +326,41 @@ export default class SelectParams extends React.Component {
       <input
         type="text"
         className={`${prefixCls}-value-alpha`}
-        value={Math.round(this.props.alpha) + "%"}
+        value={`${Math.round(this.props.alpha)}%`}
         onChange={this.handleAlphaHandler}
       />
+    );
+  }
+
+  render() {
+    const prefixCls = this.getPrefixCls();
+
+    const { enableAlpha } = this.props;
+    const { mode } = this.state;
+
+    const paramsClasses = cx({
+      [prefixCls]: true,
+      [`${prefixCls}-has-alpha`]: enableAlpha,
+    });
+
+    return (
+      <div className={paramsClasses}>
+        <div className={`${prefixCls}-type`}>
+          <select
+            className={`${prefixCls}-select`}
+            value={mode}
+            onChange={this.handleSelectChange}
+          >
+            <option value="HEX">HEX</option>
+            <option value="RGB">RGB</option>
+            <option value="CSS">CSS</option>
+            <option value="HSL">HSL</option>
+            <option value="HSB">HSB</option>
+          </select>
+
+          <div className={`${prefixCls}-value`}>{this.renderInput()}</div>
+        </div>
+      </div>
     );
   }
 }

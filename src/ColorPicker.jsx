@@ -1,11 +1,11 @@
-import React from "react";
-import { findDOMNode } from "react-dom";
-import PropTypes from "prop-types";
-import Trigger from "rc-trigger";
-import ColorPickerPanel from "./Panel";
-import placements from "./placements";
+import React from 'react';
+import { findDOMNode } from 'react-dom';
+import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import ColorPickerPanel from './Panel';
+import placements from './placements';
 
-import Color from "./helpers/color";
+import Color from './helpers/color';
 
 function refFn(field, component) {
   this[field] = component;
@@ -20,7 +20,7 @@ export default class ColorPicker extends React.Component {
     super(props);
 
     const alpha =
-      typeof props.alpha === "undefined"
+      typeof props.alpha === 'undefined'
         ? props.defaultAlpha
         : Math.min(props.alpha, props.defaultAlpha);
 
@@ -31,25 +31,25 @@ export default class ColorPicker extends React.Component {
     };
 
     const events = [
-      "onTriggerClick",
-      "onChange",
-      "onBlur",
-      "getPickerElement",
-      "getRootDOMNode",
-      "getTriggerDOMNode",
-      "onVisibleChange",
-      "onPanelMount",
-      "setOpen",
-      "open",
-      "close",
-      "focus",
+      'onTriggerClick',
+      'onChange',
+      'onBlur',
+      'getPickerElement',
+      'getRootDOMNode',
+      'getTriggerDOMNode',
+      'onVisibleChange',
+      'onPanelMount',
+      'setOpen',
+      'open',
+      'close',
+      'focus',
     ];
 
     events.forEach((e) => {
       this[e] = this[e].bind(this);
     });
 
-    this.saveTriggerRef = refFn.bind(this, "triggerInstance");
+    this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -105,7 +105,7 @@ export default class ColorPicker extends React.Component {
           open,
         },
         () => {
-          if (typeof callback === "function") callback();
+          if (typeof callback === 'function') callback();
           const { onOpen, onClose } = this.props;
           if (this.state.open) {
             onOpen(this.state);
@@ -174,9 +174,9 @@ export default class ColorPicker extends React.Component {
     if (children) {
       children = React.cloneElement(children, {
         ref: this.saveTriggerRef,
-        unselectable: "unselectable",
+        unselectable: 'unselectable',
         style: {
-          backgroundColor: `rgba(${RGBA.join(",")})`,
+          backgroundColor: `rgba(${RGBA.join(',')})`,
         },
         onClick: this.onTriggerClick,
         onMouseDown: prevent,
@@ -195,13 +195,13 @@ export default class ColorPicker extends React.Component {
     } = props;
 
     return (
-      <div className={classes.join(" ")}>
+      <div className={classes.join(' ')}>
         <Trigger
           popup={this.getPickerElement()}
           popupAlign={align}
           builtinPlacements={placements}
           popupPlacement={placement}
-          action={disabled ? [] : ["click"]}
+          action={disabled ? [] : ['click']}
           destroyPopupOnHide
           getPopupContainer={getPopupContainer}
           popupStyle={style}
@@ -227,30 +227,30 @@ ColorPicker.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string,
   enableAlpha: PropTypes.bool,
-  mode: PropTypes.oneOf(["RGB", "HSL", "HSB"]),
+  mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
   onChange: PropTypes.func,
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
   placement: PropTypes.oneOf([
-    "topLeft",
-    "topRight",
-    "bottomLeft",
-    "bottomRight",
+    'topLeft',
+    'topRight',
+    'bottomLeft',
+    'bottomRight',
   ]),
   prefixCls: PropTypes.string.isRequired,
   style: PropTypes.object,
 };
 
 ColorPicker.defaultProps = {
-  defaultColor: "#F00",
+  defaultColor: '#F00',
   defaultAlpha: 100,
   onChange() {},
   onOpen() {},
   onClose() {},
   children: <span className="vector-color-picker-trigger" />,
-  className: "",
+  className: '',
   enableAlpha: true,
-  placement: "topLeft",
-  prefixCls: "vector-color-picker",
+  placement: 'topLeft',
+  prefixCls: 'vector-color-picker',
   style: {},
 };
