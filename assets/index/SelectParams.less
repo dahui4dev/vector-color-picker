@@ -1,0 +1,125 @@
+.@{prefixClass}-panel-params {
+  font-size: 12px;
+
+  &-type {
+    overflow: hidden;
+    padding: 2px 12px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-select {
+    width: 56px;
+    height: 28px;
+    user-select: text;
+    text-align: center;
+    margin: 0;
+    border: none;
+    background-color: #f5f6f8;
+  }
+
+  input {
+    height: 28px;
+    user-select: text;
+    text-align: center;
+    //padding: 1px;
+    margin: 0;
+    //float: left;
+    border-radius: 2px;
+    border: none;
+    background-color: #f5f6f8;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+  }
+
+  input[type="number"] {
+    //margin-left: 6px;
+    //width: 44px;
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  select:focus-visible,
+  input:focus-visible {
+    outline: none;
+  }
+
+  &-value {
+    width: calc(90px + 56px + 6px);
+    height: 28px;
+    //margin-left: 6px;
+    //background-color: rgba(255, 0, 0, 0.4);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+
+    &-rgb,
+    &-hsl,
+    &-hsb {
+      width: calc(90px);
+      height: 28px;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: space-around;
+      align-items: center;
+
+      input {
+        //background-color: #00ff66;
+        width: 30px;
+        //margin-left: 1px;
+      }
+    }
+
+    &-hex {
+      width: 90px;
+
+      input {
+        //background-color: #4e7cef;
+        width: 90px;
+        //margin-left: 1px;
+      }
+    }
+
+    &-css {
+      width: calc(90px + 56px + 6px);
+
+      input {
+        //background-color: #c151e7;
+        width: calc(90px + 56px + 6px);
+        //margin-left: 1px;
+      }
+    }
+
+    &-alpha {
+      margin-left: 6px;
+      width: 56px;
+      //background-color: #f16109;
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+}
+
+//.@{prefixClass}-panel-params-has-alpha {
+//  input[type="number"] {
+//    width: 56px;
+//  }
+//  .@{prefixClass}-panel-params-lable {
+//    &-number,
+//    &-alpha {
+//      width: 32px;
+//    }
+//  }
+//}

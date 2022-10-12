@@ -1,0 +1,39 @@
+@prefixClassName: ~"@{prefixClass}-panel";
+
+.@{prefixClassName}-inner {
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px #ccc;
+  border: 1px solid #ccc;
+  //padding-bottom: 12px;
+}
+
+.@{prefixClassName}-wrap {
+  margin: 10px 0 0;
+  height: 30px;
+  width: 100%;
+  position: relative;
+  &-preview {
+    position: absolute;
+    left: 12px;
+  }
+  &-ribbon {
+    position: absolute;
+    right: 12px;
+    top: 0;
+    left: 48px;
+    height: 30px;
+  }
+  &-alpha {
+    position: absolute;
+    right: 12px;
+    left: 48px;
+    bottom: 0;
+    height: (30px - 5px) / 2;
+  }
+}
+.@{prefixClassName}-wrap-has-alpha {
+  .@{prefixClassName}-wrap-ribbon {
+    height: (30px - 5px) / 2;
+  }
+}
