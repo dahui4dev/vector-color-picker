@@ -19,7 +19,7 @@
 
 ## Screenshots
 
-<img src=https://cloud.githubusercontent.com/assets/1292082/8275606/8608e8f8-18db-11e5-8d10-703253db2a4f.png width=238 />
+<img width="279" alt="image" src="https://user-images.githubusercontent.com/6160798/195413518-18c79ae9-9238-487d-87ae-5618c065f10a.png">
 
 ## Development
 
