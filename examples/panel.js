@@ -6,6 +6,9 @@ import { Panel as ColorPickerPanel } from 'vector-color-picker';
 function onChange(obj) {
   console.log(obj);
 }
+function onAbsorption() {
+  console.log('onAbsorption 开启吸色');
+}
 
 ReactDOM.render(
   <div
@@ -24,6 +27,7 @@ ReactDOM.render(
       alpha={90}
       color={'#FF0000'}
       onChange={onChange}
+      onAbsorption={onAbsorption}
       mode="RGB"
     />
     <hr />

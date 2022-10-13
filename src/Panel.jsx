@@ -82,6 +82,13 @@ export default class Panel extends React.Component {
   };
 
   /**
+   * 开启吸色
+   */
+  onAbsorption = () => {
+    this.props.onAbsorption();
+  };
+
+  /**
    * 响应 alpha 的变更
    * @param  {Number} alpha Range 0~100
    */
@@ -159,10 +166,7 @@ export default class Panel extends React.Component {
             <div className={`${prefixCls}-wrap-preview`}>
               <Absorption
                 rootPrefixCls={prefixCls}
-                alpha={alpha}
-                onChange={this.handleChange}
-                onInputClick={this.onSystemColorPickerOpen}
-                color={color}
+                onAbsorption={this.onAbsorption}
               />
             </div>
           </div>
@@ -200,6 +204,7 @@ Panel.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onMount: PropTypes.func,
+  onAbsorption: PropTypes.func,
   prefixCls: PropTypes.string,
   style: PropTypes.object,
 };
@@ -214,6 +219,7 @@ Panel.defaultProps = {
   onChange: noop,
   onFocus: noop,
   onMount: noop,
+  onAbsorption: noop,
   prefixCls: 'vector-color-picker-panel',
   style: {},
 };
