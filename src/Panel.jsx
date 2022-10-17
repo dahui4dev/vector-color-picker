@@ -25,10 +25,12 @@ export default class Panel extends React.Component {
         : Math.min(props.alpha, props.defaultAlpha);
 
     const color = new Color(props.color || props.defaultColor);
+    const mode = props.mode;
 
     this.state = {
       color,
       alpha,
+      mode,
     };
   }
 
@@ -121,6 +123,10 @@ export default class Panel extends React.Component {
     });
   };
 
+  handleModeChange = (mode) => {
+    this.setState({ mode });
+  };
+
   render() {
     const { prefixCls, enableAlpha } = this.props;
     const { color, alpha } = this.state;
@@ -143,6 +149,7 @@ export default class Panel extends React.Component {
           <Board
             rootPrefixCls={prefixCls}
             color={color}
+            mode={this.state.mode}
             onChange={this.handleChange}
           />
           <div className={wrapClasses}>
@@ -180,7 +187,8 @@ export default class Panel extends React.Component {
               alpha={alpha}
               onAlphaChange={this.handleAlphaChange}
               onChange={this.handleChange}
-              mode={this.props.mode}
+              mode={this.state.mode}
+              onModeChange={this.handleModeChange}
               enableAlpha={this.props.enableAlpha}
             />
           </div>

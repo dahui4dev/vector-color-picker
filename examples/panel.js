@@ -7,7 +7,7 @@ function onChange(obj) {
   console.log(obj);
 }
 function onAbsorption() {
-  console.log('onAbsorption 开启吸色');
+  // console.log('onAbsorption 开启吸色');
 }
 
 ReactDOM.render(
@@ -24,8 +24,8 @@ ReactDOM.render(
   >
     <ColorPickerPanel
       // enableAlpha={false}
-      alpha={90}
-      color={'#FF0000'}
+      alpha={100}
+      color={'rgb(128, 128, 128)'}
       onChange={onChange}
       onAbsorption={onAbsorption}
       mode="RGB"

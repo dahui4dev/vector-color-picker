@@ -106,16 +106,20 @@ export default class SelectParams extends React.Component {
     });
   };
 
-  handleModeChange = () => {
-    let mode = this.state.mode;
+  handleModeChange = (event) => {
+    let mode = event.target.value;
 
-    const modeIndex = (modesMap.indexOf(mode) + 1) % modesMap.length;
-
+    const modeIndex = modesMap.indexOf(mode) % modesMap.length;
     mode = modesMap[modeIndex];
 
-    this.setState({
-      mode,
-    });
+    this.setState(
+      {
+        mode,
+      },
+      () => {
+        this.props.onModeChange(mode);
+      }
+    );
   };
 
   handleAlphaHandler = (event) => {
@@ -133,6 +137,8 @@ export default class SelectParams extends React.Component {
   updateColorByChanel = (channel, value) => {
     const { color } = this.props;
     const { mode } = this.state;
+
+    console.log('---137--updateColorByChanel---', mode);
 
     if (mode === 'HSB') {
       if (channel === 'H') {
@@ -181,17 +187,13 @@ export default class SelectParams extends React.Component {
     );
   };
 
-  handleSelectChange = (event) => {
-    this.setState({
-      mode: event.target.value,
-    });
-  };
-
   renderInput() {
     const prefixCls = this.getPrefixCls();
     const { enableAlpha } = this.props;
     const { mode, color } = this.state;
     const colorChannel = color[mode];
+
+    console.log('---198--renderInput---', mode, colorChannel);
 
     switch (mode) {
       case 'HEX':
@@ -349,7 +351,7 @@ export default class SelectParams extends React.Component {
           <select
             className={`${prefixCls}-select`}
             value={mode}
-            onChange={this.handleSelectChange}
+            onChange={this.handleModeChange}
           >
             <option value="HEX">HEX</option>
             <option value="RGB">RGB</option>
@@ -370,6 +372,7 @@ SelectParams.propTypes = {
   enableAlpha: PropTypes.bool,
   color: PropTypes.object.isRequired,
   mode: PropTypes.oneOf(modesMap),
+  onModeChange: PropTypes.func,
   onAlphaChange: PropTypes.func,
   onChange: PropTypes.func,
   rootPrefixCls: PropTypes.string,
