@@ -138,9 +138,15 @@ export default class Board extends React.Component {
 
     const { color } = this.props;
 
-    color.saturation = left / rWidth;
-    color.brightness = 1 - top / rHeight;
-    // color.lightness = 1 - top / rHeight;
+    const mode = this.props.mode;
+
+    if (mode === 'HSL') {
+      color.saturationHsl = left / rWidth;
+      color.lightness = 1 - top / rHeight;
+    } else {
+      color.saturationHsb = left / rWidth;
+      color.brightness = 1 - top / rHeight;
+    }
 
     this.props.onChange(color);
   };
@@ -150,8 +156,6 @@ export default class Board extends React.Component {
     const color = this.props.color;
     const mode = this.props.mode;
 
-    console.log('---153--Board---render---', this.props);
-
     const hueHsv = {
       h: color.hue,
       s: 1,
@@ -160,8 +164,16 @@ export default class Board extends React.Component {
 
     const hueColor = new Color(hueHsv).toHexString();
 
-    const xRel = color.saturation * 100;
-    const yRel = (1 - color.brightness) * 100;
+    let xRel = 0;
+    let yRel = 0;
+
+    if (mode === 'HSL') {
+      xRel = color.saturationHsl * 100;
+      yRel = color.lightness * 100;
+    } else {
+      xRel = color.saturationHsb * 100;
+      yRel = (1 - color.brightness) * 100;
+    }
 
     return (
       <div className={prefixCls}>
@@ -197,7 +209,7 @@ export default class Board extends React.Component {
 
 /**
  * hsv
- * h: range(0, 359)
+ * h: range(0, 360)
  * s: range(0, 1)
  * v: range(0, 1)
  */

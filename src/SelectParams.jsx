@@ -138,13 +138,11 @@ export default class SelectParams extends React.Component {
     const { color } = this.props;
     const { mode } = this.state;
 
-    console.log('---137--updateColorByChanel---', mode);
-
     if (mode === 'HSB') {
       if (channel === 'H') {
         color.hue = parseInt(value, 10);
       } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
+        color.saturationHsb = parseInt(value, 10) / 100;
       } else if (channel === 'B') {
         color.brightness = parseInt(value, 10) / 100;
       }
@@ -152,7 +150,7 @@ export default class SelectParams extends React.Component {
       if (channel === 'H') {
         color.hue = parseInt(value, 10);
       } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
+        color.saturationHsl = parseInt(value, 10) / 100;
       } else if (channel === 'L') {
         color.lightness = parseInt(value, 10) / 100;
       }
@@ -191,9 +189,8 @@ export default class SelectParams extends React.Component {
     const prefixCls = this.getPrefixCls();
     const { enableAlpha } = this.props;
     const { mode, color } = this.state;
-    const colorChannel = color[mode];
 
-    console.log('---198--renderInput---', mode, colorChannel);
+    const colorChannel = color[mode];
 
     switch (mode) {
       case 'HEX':
@@ -219,10 +216,10 @@ export default class SelectParams extends React.Component {
             <input
               type="text"
               maxLength="6"
-              onKeyPress={this.handleHexPress}
-              onBlur={this.handleHexBlur}
-              onChange={this.handleHexChange}
-              value={this.state.hex.toLowerCase()}
+              // onKeyPress={this.handleHexPress}
+              // onBlur={this.handleHexBlur}
+              // onChange={this.handleHexChange}
+              value={this.state.color.toRgbString()}
             />
           </div>
         );

@@ -28,7 +28,7 @@ export default class Color {
     const { h, s, v } = this.color.toHsv();
 
     this.hueValue = h;
-    this.saturationValue = s;
+    this.saturationHsbValue = s;
     this.brightnessValue = v;
   };
 
@@ -36,7 +36,7 @@ export default class Color {
     const { h, s, l } = this.color.toHsl();
 
     this.hueValue = h;
-    this.saturationValue = s;
+    this.saturationHslValue = s;
     this.lightnessValue = l;
   };
 
@@ -52,24 +52,25 @@ export default class Color {
     return this.color.toHex();
   }
 
-  // 色调
+  // 色相
   set hue(value) {
     this.color = tinycolor({
       h: value,
-      s: this.saturation,
+      s: this.saturationHsb,
       v: this.brightness,
     });
 
     this.initRgb();
+    this.initHsb();
+    this.initHsl();
     this.hueValue = value;
   }
-
   get hue() {
     return this.hueValue;
   }
 
-  // 饱和度
-  set saturation(value) {
+  // HSB 饱和度
+  set saturationHsb(value) {
     this.color = tinycolor({
       h: this.hue,
       s: value,
@@ -77,42 +78,59 @@ export default class Color {
     });
 
     this.initRgb();
-    this.saturationValue = value;
+    this.initHsl();
+    this.saturationHsbValue = value;
+  }
+  get saturationHsb() {
+    return this.saturationHsbValue;
   }
 
-  get saturation() {
-    return this.saturationValue;
-  }
-
-  // 亮度
-  set lightness(value) {
-    this.color = tinycolor({
-      h: this.hue,
-      s: this.saturation,
-      l: value,
-    });
-
-    this.initRgb();
-    this.lightnessValue = value;
-  }
-
-  get lightness() {
-    return this.lightnessValue;
-  }
-
+  // HSB 亮度
   set brightness(value) {
     this.color = tinycolor({
       h: this.hue,
-      s: this.saturation,
+      s: this.saturationHsb,
       v: value,
     });
 
     this.initRgb();
+    this.initHsl();
     this.brightnessValue = value;
   }
-
   get brightness() {
     return this.brightnessValue;
+  }
+
+  // HSL 饱和度
+  set saturationHsl(value) {
+    this.color = tinycolor({
+      h: this.hue,
+      s: value,
+      v: this.lightness,
+    });
+
+    this.initRgb();
+    this.initHsb();
+    this.saturationHslValue = value;
+  }
+  get saturationHsl() {
+    return this.saturationHslValue;
+  }
+
+  // HSL 亮度
+  set lightness(value) {
+    this.color = tinycolor({
+      h: this.hue,
+      s: this.saturationHsl,
+      l: value,
+    });
+
+    this.initRgb();
+    this.initHsb();
+    this.lightnessValue = value;
+  }
+  get lightness() {
+    return this.lightnessValue;
   }
 
   // red
@@ -124,9 +142,9 @@ export default class Color {
     });
 
     this.initHsb();
+    this.initHsl();
     this.redValue = value;
   }
-
   get red() {
     return this.redValue;
   }
@@ -140,9 +158,9 @@ export default class Color {
     });
 
     this.initHsb();
+    this.initHsl();
     this.greenValue = value;
   }
-
   get green() {
     return this.greenValue;
   }
@@ -156,9 +174,9 @@ export default class Color {
     });
 
     this.initHsb();
+    this.initHsl();
     this.blueValue = value;
   }
-
   get blue() {
     return this.blueValue;
   }
@@ -167,7 +185,6 @@ export default class Color {
   set alpha(value) {
     this.color.setAlpha(value / 100);
   }
-
   get alpha() {
     return this.color.getAlpha() * 100;
   }
@@ -177,9 +194,10 @@ export default class Color {
   }
 
   get HSB() {
-    return [this.hue, this.saturation, this.brightness];
+    return [this.hue, this.saturationHsb, this.brightness];
   }
+
   get HSL() {
-    return [this.hue, this.saturation, this.lightness];
+    return [this.hue, this.saturationHsl, this.lightness];
   }
 }
