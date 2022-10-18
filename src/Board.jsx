@@ -138,8 +138,15 @@ export default class Board extends React.Component {
 
     const { color } = this.props;
 
-    color.saturation = left / rWidth;
-    color.brightness = 1 - top / rHeight;
+    const mode = this.props.mode;
+
+    if (mode === 'HSL') {
+      color.saturationHsl = left / rWidth;
+      color.lightness = 1 - top / rHeight;
+    } else {
+      color.saturationHsb = left / rWidth;
+      color.brightness = 1 - top / rHeight;
+    }
 
     this.props.onChange(color);
   };
@@ -147,6 +154,7 @@ export default class Board extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
     const color = this.props.color;
+    const mode = this.props.mode;
 
     const hueHsv = {
       h: color.hue,
@@ -156,18 +164,37 @@ export default class Board extends React.Component {
 
     const hueColor = new Color(hueHsv).toHexString();
 
-    const xRel = color.saturation * 100;
-    const yRel = (1 - color.brightness) * 100;
+    let xRel = 0;
+    let yRel = 0;
+
+    if (mode === 'HSL') {
+      xRel = color.saturationHsl * 100;
+      yRel = color.lightness * 100;
+    } else {
+      xRel = color.saturationHsb * 100;
+      yRel = (1 - color.brightness) * 100;
+    }
 
     return (
       <div className={prefixCls}>
-        <div
-          className={`${prefixCls}-hsv`}
-          style={{ backgroundColor: hueColor }}
-        >
-          <div className={`${prefixCls}-value`} />
-          <div className={`${prefixCls}-saturation`} />
-        </div>
+        {mode === 'HSL' ? (
+          <div
+            className={`${prefixCls}-hsl`}
+            style={{ backgroundColor: hueColor }}
+          >
+            <div className={`${prefixCls}-hsl-value`} />
+            <div className={`${prefixCls}-hsl-saturation`} />
+          </div>
+        ) : (
+          <div
+            className={`${prefixCls}-hsv`}
+            style={{ backgroundColor: hueColor }}
+          >
+            <div className={`${prefixCls}-hsv-value`} />
+            <div className={`${prefixCls}-hsv-saturation`} />
+          </div>
+        )}
+
         <span style={{ left: `${xRel}%`, top: `${yRel}%` }} />
 
         <div
@@ -182,7 +209,7 @@ export default class Board extends React.Component {
 
 /**
  * hsv
- * h: range(0, 359)
+ * h: range(0, 360)
  * s: range(0, 1)
  * v: range(0, 1)
  */
@@ -191,4 +218,5 @@ Board.propTypes = {
   color: PropTypes.object,
   onChange: PropTypes.func,
   rootPrefixCls: PropTypes.string,
+  mode: PropTypes.oneOf(['HEX', 'CSS', 'RGB', 'HSL', 'HSB']),
 };

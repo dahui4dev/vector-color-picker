@@ -106,16 +106,20 @@ export default class SelectParams extends React.Component {
     });
   };
 
-  handleModeChange = () => {
-    let mode = this.state.mode;
+  handleModeChange = (event) => {
+    let mode = event.target.value;
 
-    const modeIndex = (modesMap.indexOf(mode) + 1) % modesMap.length;
-
+    const modeIndex = modesMap.indexOf(mode) % modesMap.length;
     mode = modesMap[modeIndex];
 
-    this.setState({
-      mode,
-    });
+    this.setState(
+      {
+        mode,
+      },
+      () => {
+        this.props.onModeChange(mode);
+      }
+    );
   };
 
   handleAlphaHandler = (event) => {
@@ -138,7 +142,7 @@ export default class SelectParams extends React.Component {
       if (channel === 'H') {
         color.hue = parseInt(value, 10);
       } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
+        color.saturationHsb = parseInt(value, 10) / 100;
       } else if (channel === 'B') {
         color.brightness = parseInt(value, 10) / 100;
       }
@@ -146,7 +150,7 @@ export default class SelectParams extends React.Component {
       if (channel === 'H') {
         color.hue = parseInt(value, 10);
       } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
+        color.saturationHsl = parseInt(value, 10) / 100;
       } else if (channel === 'L') {
         color.lightness = parseInt(value, 10) / 100;
       }
@@ -181,16 +185,11 @@ export default class SelectParams extends React.Component {
     );
   };
 
-  handleSelectChange = (event) => {
-    this.setState({
-      mode: event.target.value,
-    });
-  };
-
   renderInput() {
     const prefixCls = this.getPrefixCls();
     const { enableAlpha } = this.props;
     const { mode, color } = this.state;
+
     const colorChannel = color[mode];
 
     switch (mode) {
@@ -217,10 +216,10 @@ export default class SelectParams extends React.Component {
             <input
               type="text"
               maxLength="6"
-              onKeyPress={this.handleHexPress}
-              onBlur={this.handleHexBlur}
-              onChange={this.handleHexChange}
-              value={this.state.hex.toLowerCase()}
+              // onKeyPress={this.handleHexPress}
+              // onBlur={this.handleHexBlur}
+              // onChange={this.handleHexChange}
+              value={this.state.color.toRgbString()}
             />
           </div>
         );
@@ -349,7 +348,7 @@ export default class SelectParams extends React.Component {
           <select
             className={`${prefixCls}-select`}
             value={mode}
-            onChange={this.handleSelectChange}
+            onChange={this.handleModeChange}
           >
             <option value="HEX">HEX</option>
             <option value="RGB">RGB</option>
@@ -370,6 +369,7 @@ SelectParams.propTypes = {
   enableAlpha: PropTypes.bool,
   color: PropTypes.object.isRequired,
   mode: PropTypes.oneOf(modesMap),
+  onModeChange: PropTypes.func,
   onAlphaChange: PropTypes.func,
   onChange: PropTypes.func,
   rootPrefixCls: PropTypes.string,
