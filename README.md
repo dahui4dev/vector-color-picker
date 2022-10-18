@@ -30,7 +30,7 @@ npm start
 
 ## Example
 
-online example: [http://react-component.github.io/color-picker/](http://react-component.github.io/color-picker/)
+online example: [https://dahui4dev.github.io/vector-color-picker/](https://dahui4dev.github.io/vector-color-picker/)
 
 ## Feature
 
