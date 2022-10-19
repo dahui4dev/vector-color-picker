@@ -169,7 +169,7 @@ export default class Board extends React.Component {
 
     if (mode === 'HSL') {
       xRel = color.saturationHsl * 100;
-      yRel = color.lightness * 100;
+      yRel = (1 - color.lightness) * 100;
     } else {
       xRel = color.saturationHsb * 100;
       yRel = (1 - color.brightness) * 100;
