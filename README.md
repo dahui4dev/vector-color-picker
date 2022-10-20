@@ -2,14 +2,12 @@
 
 ---
 
-基于 rc-color-picker 二次开发的 Vector Color Picker.
+基于 [rc-color-picker](https://github.com/react-component/color-picker) 二次开发的 `Vector Color Picker`.
 
-差异点：增加 "HEX/CSS/RGB/HSL/HSB" 互相切换。
+增加 `"HEX", "CSS", "RGB", "HSL", "HSB"` 模式切换。
 
 [![npm version](http://img.shields.io/npm/v/vector-color-picker.svg)](https://www.npmjs.org/package/vector-color-picker)
 [![npm download](http://img.shields.io/npm/dm/vector-color-picker.svg)](https://www.npmjs.org/package/vector-color-picker)
-[![npm dependency](https://david-dm.org/react-component/color-picker.svg)](https://david-dm.org/react-component/color-picker)
-[![Build Status](https://travis-ci.org/react-component/color-picker.svg?branch=master)](https://travis-ci.org/react-component/color-picker)
 
 ## Browser Support
 
@@ -34,7 +32,7 @@ online example: [https://dahui4dev.github.io/vector-color-picker/](https://dahui
 
 ## Feature
 
-- support color mode RGB HSB HSL
+- support color mode HEX CSS RGB HSB HSL
 
 ## install
 
@@ -65,7 +63,7 @@ ReactDOM.render(<ColorPicker />, container);
 | defaultColor      | String                           | `#ff0000`                                             | color board current background color                                     |
 | enableAlpha       | Boolean                          | `true`                                                | enable alpha controls                                                    |
 | getPopupContainer | Function():Element               | `function(){return document.body;}`                   | dom node where picker to be rendered into                                |
-| mode              | String                           | `RGB`                                                 | color mode, support mode 'RGB', 'HSB' or 'HSL'                           |
+| mode              | String                           | `RGB`                                                 | color mode, support mode 'RGB', 'HSB', 'HSL', 'HEX'                      |
 | onChange          | Function                         | noop                                                  | when select color                                                        |
 | onClose           | Function                         | noop                                                  | when color picker popup close                                            |
 | onOpen            | Function                         | noop                                                  | when color picker popup open                                             |
