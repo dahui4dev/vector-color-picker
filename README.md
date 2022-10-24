@@ -64,7 +64,7 @@ ReactDOM.render(<ColorPicker />, container);
 | enableAlpha       | Boolean                          | `true`                                                | enable alpha controls                                                    |
 | getPopupContainer | Function():Element               | `function(){return document.body;}`                   | dom node where picker to be rendered into                                |
 | mode              | String                           | `RGB`                                                 | color mode, support mode 'RGB', 'HSB', 'HSL', 'HEX'                      |
-| onChange          | Function                         | noop                                                  | when select color                                                        |
+| onChange          | Function                         | noop                                                  | when select color ({color: string, alpha: number})=>void                 |
 | onClose           | Function                         | noop                                                  | when color picker popup close                                            |
 | onOpen            | Function                         | noop                                                  | when color picker popup open                                             |
 | placement         | String                           | `topLeft`                                             | one of ['topLeft', 'topRight', 'bottomLeft', 'bottomRight']              |
