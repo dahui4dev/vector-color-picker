@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>vector-color-picker@1.0.1 - color-picker ui component for vector</title>
+  <title>vector-color-picker@1.0.2 - color-picker ui component for vector</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>vector-color-picker@1.0.1</h1>
+  <h1>vector-color-picker@1.0.2</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -875,7 +875,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td style="text-align:left">onChange</td>
 <td style="text-align:left">Function</td>
 <td style="text-align:left">noop</td>
-<td style="text-align:left">when select color</td>
+<td style="text-align:left">when select color ({color: string, alpha: number}) =&gt; void</td>
 </tr>
 <tr>
 <td style="text-align:left">onClose</td>
@@ -953,7 +953,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td style="text-align:left">mode</td>
 <td style="text-align:left">String</td>
 <td style="text-align:left"><code>RGB</code></td>
-<td style="text-align:left">color mode, support mode &#39;RGB&#39;, &#39;HSB&#39; or &#39;HSL&#39;</td>
+<td style="text-align:left">color mode, support mode &#39;RGB&#39;, &#39;HSB&#39;, &#39;HSL&#39;, &#39;HEX&#39;, &#39;CSS&#39;</td>
 </tr>
 <tr>
 <td style="text-align:left">onBlur</td>
@@ -965,7 +965,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td style="text-align:left">onChange</td>
 <td style="text-align:left">Function</td>
 <td style="text-align:left"></td>
-<td style="text-align:left">when select color trigger</td>
+<td style="text-align:left">when select color trigger ({color: string, alpha: number}) =&gt; void</td>
 </tr>
 <tr>
 <td style="text-align:left">onFocus</td>
@@ -977,7 +977,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td style="text-align:left">onAbsorption</td>
 <td style="text-align:left">Function</td>
 <td style="text-align:left"></td>
-<td style="text-align:left">When absorption is triggered, re-pass the absorbed color to the color property</td>
+<td style="text-align:left">When absorption is triggered, re-pass the absorbed color to the color property,  ({color: string, alpha: number}) =&gt; void</td>
 </tr>
 <tr>
 <td style="text-align:left">style</td>

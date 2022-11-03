@@ -27,11 +27,17 @@ webpackJsonp([2],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function onChange(obj) {
-	  console.log(obj);
+	function onFocus(obj) {
+	  console.log('onFocus', obj);
 	}
-	function onAbsorption() {
-	  // console.log('onAbsorption 开启吸色');
+	function onChange(obj) {
+	  console.log('onChange', obj);
+	}
+	function onBlur(obj) {
+	  console.log('onBlur', obj);
+	}
+	function onAbsorption(color) {
+	  console.log('onAbsorption', color);
 	}
 	
 	_reactDom2.default.render(_react2.default.createElement(
@@ -52,6 +58,8 @@ webpackJsonp([2],{
 	  , { alpha: 100,
 	    color: 'hsv(0, 100%, 1%)',
 	    onChange: onChange,
+	    onBlur: onBlur,
+	    onFocus: onFocus,
 	    onAbsorption: onAbsorption,
 	    mode: 'HSB'
 	  }),
@@ -60,6 +68,7 @@ webpackJsonp([2],{
 	    alpha: 80,
 	    color: '#477898',
 	    onChange: onChange,
+	    onAbsorption: onAbsorption,
 	    mode: 'HEX'
 	  })
 	), document.getElementById('__react-content'));

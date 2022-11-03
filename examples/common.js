@@ -37951,7 +37951,10 @@
 	  };
 	
 	  this.onAbsorption = function () {
-	    _this3.props.onAbsorption();
+	    _this3.props.onAbsorption({
+	      color: _this3.state.color.toRgbString(),
+	      alpha: _this3.state.alpha
+	    });
 	  };
 	
 	  this.handleAlphaChange = function (alpha) {

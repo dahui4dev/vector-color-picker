@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>panel.js - example - vector-color-picker@1.0.1</title>
+  <title>panel.js - example - vector-color-picker@1.0.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>vector-color-picker@1.0.1</h1>
+      <h1>vector-color-picker@1.0.2</h1>
 
       <p>color-picker ui component for vector</p>
     </div>
@@ -274,11 +274,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> { Panel <span class="hljs-keyword">as</span> ColorPickerPanel } <span class="hljs-keyword">from</span> <span class="hljs-string">'vector-color-picker'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span>(<span class="hljs-params">obj</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onFocus</span>(<span class="hljs-params">obj</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onFocus'</span>, obj);
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAbsorption</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// console.log('onAbsorption 开启吸色');</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span>(<span class="hljs-params">obj</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, obj);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onBlur</span>(<span class="hljs-params">obj</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onBlur'</span>, obj);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAbsorption</span>(<span class="hljs-params">color</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onAbsorption'</span>, color);
 }
 
 ReactDOM.render(
@@ -298,6 +304,8 @@ ReactDOM.render(
       <span class="hljs-attribute">alpha</span>=<span class="hljs-value">{100}</span>
       <span class="hljs-attribute">color</span>=<span class="hljs-value">{'hsv(0,</span> <span class="hljs-attribute">100</span>%, <span class="hljs-attribute">1</span>%)'}
       <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
+      <span class="hljs-attribute">onBlur</span>=<span class="hljs-value">{onBlur}</span>
+      <span class="hljs-attribute">onFocus</span>=<span class="hljs-value">{onFocus}</span>
       <span class="hljs-attribute">onAbsorption</span>=<span class="hljs-value">{onAbsorption}</span>
       <span class="hljs-attribute">mode</span>=<span class="hljs-value">"HSB"</span>
     /&gt;</span>
@@ -306,6 +314,7 @@ ReactDOM.render(
       <span class="hljs-attribute">alpha</span>=<span class="hljs-value">{80}</span>
       <span class="hljs-attribute">color</span>=<span class="hljs-value">{'#477898'}</span>
       <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
+      <span class="hljs-attribute">onAbsorption</span>=<span class="hljs-value">{onAbsorption}</span>
       <span class="hljs-attribute">mode</span>=<span class="hljs-value">"HEX"</span>
     /&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
