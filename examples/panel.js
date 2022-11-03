@@ -3,11 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Panel as ColorPickerPanel } from 'vector-color-picker';
 
-function onChange(obj) {
-  console.log(obj);
+function onFocus(obj) {
+  console.log('onFocus', obj);
 }
-function onAbsorption() {
-  // console.log('onAbsorption 开启吸色');
+function onChange(obj) {
+  console.log('onChange', obj);
+}
+function onBlur(obj) {
+  console.log('onBlur', obj);
+}
+function onAbsorption(color) {
+  console.log('onAbsorption', color);
 }
 
 ReactDOM.render(
@@ -27,6 +33,8 @@ ReactDOM.render(
       alpha={100}
       color={'hsv(0, 100%, 1%)'}
       onChange={onChange}
+      onBlur={onBlur}
+      onFocus={onFocus}
       onAbsorption={onAbsorption}
       mode="HSB"
     />
@@ -35,6 +43,7 @@ ReactDOM.render(
       alpha={80}
       color={'#477898'}
       onChange={onChange}
+      onAbsorption={onAbsorption}
       mode="HEX"
     />
   </div>,

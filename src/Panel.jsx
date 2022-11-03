@@ -87,7 +87,10 @@ export default class Panel extends React.Component {
    * 开启吸色
    */
   onAbsorption = () => {
-    this.props.onAbsorption();
+    this.props.onAbsorption({
+      color: this.state.color.toRgbString(),
+      alpha: this.state.alpha,
+    });
   };
 
   /**

@@ -64,7 +64,7 @@ ReactDOM.render(<ColorPicker />, container);
 | enableAlpha       | Boolean                          | `true`                                                | enable alpha controls                                                    |
 | getPopupContainer | Function():Element               | `function(){return document.body;}`                   | dom node where picker to be rendered into                                |
 | mode              | String                           | `RGB`                                                 | color mode, support mode 'RGB', 'HSB', 'HSL', 'HEX'                      |
-| onChange          | Function                         | noop                                                  | when select color ({color: string, alpha: number})=>void                 |
+| onChange          | Function                         | noop                                                  | when select color ({color: string, alpha: number}) => void               |
 | onClose           | Function                         | noop                                                  | when color picker popup close                                            |
 | onOpen            | Function                         | noop                                                  | when color picker popup open                                             |
 | placement         | String                           | `topLeft`                                             | one of ['topLeft', 'topRight', 'bottomLeft', 'bottomRight']              |
@@ -72,20 +72,20 @@ ReactDOM.render(<ColorPicker />, container);
 
 ### ColorPicker.Panel.props
 
-| name         | type     | default   | description                                                                    |
-|:-------------|:---------|:----------|:-------------------------------------------------------------------------------|
-| alpha        | Number   | `100`     | opacity of the color                                                           |
-| className    | String   | `''`      | Additional class to be added to component                                      |
-| color        | String   | `#ff0000` | color board current background color                                           |
-| defaultAlpha | Number   | `100`     | opacity of the color                                                           |
-| defaultColor | String   | `#ff0000` | color board current background color                                           |
-| enableAlpha  | Boolean  | `true`    | enable alpha controls                                                          |
-| mode         | String   | `RGB`     | color mode, support mode 'RGB', 'HSB' or 'HSL'                                 |
-| onBlur       | Function |           | when picker loose focus                                                        |
-| onChange     | Function |           | when select color trigger                                                      |
-| onFocus      | Function |           | when picker focus trigger                                                      |
-| onAbsorption | Function |           | When absorption is triggered, re-pass the absorbed color to the color property |
-| style        | Object   | `{}`      | root node CSS style                                                            |
+| name         | type     | default   | description                                                                                                               |
+|:-------------|:---------|:----------|:--------------------------------------------------------------------------------------------------------------------------|
+| alpha        | Number   | `100`     | opacity of the color                                                                                                      |
+| className    | String   | `''`      | Additional class to be added to component                                                                                 |
+| color        | String   | `#ff0000` | color board current background color                                                                                      |
+| defaultAlpha | Number   | `100`     | opacity of the color                                                                                                      |
+| defaultColor | String   | `#ff0000` | color board current background color                                                                                      |
+| enableAlpha  | Boolean  | `true`    | enable alpha controls                                                                                                     |
+| mode         | String   | `RGB`     | color mode, support mode 'RGB', 'HSB', 'HSL', 'HEX', 'CSS'                                                                |
+| onBlur       | Function |           | when picker loose focus                                                                                                   |
+| onChange     | Function |           | when select color trigger ({color: string, alpha: number}) => void                                                        |
+| onFocus      | Function |           | when picker focus trigger                                                                                                 |
+| onAbsorption | Function |           | When absorption is triggered, re-pass the absorbed color to the color property,  ({color: string, alpha: number}) => void |
+| style        | Object   | `{}`      | root node CSS style                                                                                                       |
 
 ## License
 
