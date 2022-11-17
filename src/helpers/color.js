@@ -109,7 +109,7 @@ export default class Color {
     this.color = tinycolor({
       h: this.hue,
       s: value,
-      v: this.lightness,
+      l: this.lightness,
     });
 
     this.initRgb();

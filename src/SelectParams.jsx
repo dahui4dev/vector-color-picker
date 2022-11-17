@@ -218,6 +218,7 @@ export default class SelectParams extends React.Component {
     this.setState(
       {
         hex: color.hex,
+        css: color.css,
         color,
       },
       () => {
