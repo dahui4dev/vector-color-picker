@@ -31,12 +31,12 @@ ReactDOM.render(
     <ColorPickerPanel
       // enableAlpha={false}
       alpha={100}
-      color={'hsv(0, 100%, 1%)'}
+      color={'rgb(186, 104, 134)'}
       onChange={onChange}
       onBlur={onBlur}
       onFocus={onFocus}
       onAbsorption={onAbsorption}
-      mode="HSB"
+      mode="CSS"
     />
     <hr />
     <ColorPickerPanel

@@ -51,6 +51,9 @@ export default class Color {
   get hex() {
     return this.color.toHex();
   }
+  get css() {
+    return this.color.toRgbString();
+  }
 
   // 色相
   set hue(value) {

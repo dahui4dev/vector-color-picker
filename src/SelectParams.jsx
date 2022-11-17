@@ -15,7 +15,8 @@ export default class SelectParams extends React.Component {
     this.state = {
       mode: props.mode,
       hex: props.color.hex,
-      color: props.color, // instanceof tinycolor
+      css: props.color.css,
+      color: props.color, // instanceof tinycolor 最终都以此值为准
     };
   }
 
@@ -25,6 +26,7 @@ export default class SelectParams extends React.Component {
     this.setState({
       color: nextColor,
       hex: nextColor.hex,
+      css: nextColor.css,
     });
   }
 
@@ -61,49 +63,88 @@ export default class SelectParams extends React.Component {
     return `${this.props.rootPrefixCls}-params`;
   };
 
+  /**
+   onchange 记录临时修改到 state.hex，
+   onPress\onBlur 将临时修改校验：
+      通过：同步进 state.color，以及通知父组件，
+      不通过：将错误的 state.hex 用 color 替换
+   */
+  handleHexChange = (event) => {
+    const hex = event.target.value;
+    this.setState({
+      hex,
+    });
+  };
   handleHexBlur = () => {
     const hex = this.state.hex;
-
-    let color = null;
-
+    this.syncHexFinalVal(hex);
+  };
+  handleHexPress = (event) => {
+    const hex = this.state.hex;
+    if (event.nativeEvent.which === 13) {
+      this.syncHexFinalVal(hex);
+    }
+  };
+  syncHexFinalVal = (hex) => {
+    let color = this.state.color;
+    let changeSuccess = false;
     if (Color.isValidHex(hex)) {
       color = new Color(hex);
+      changeSuccess = true;
     }
-
-    if (color !== null) {
+    if (changeSuccess) {
       this.setState({
         color,
         hex,
       });
       this.props.onChange(color, false);
+    } else {
+      this.setState({
+        hex: color.hex,
+      });
     }
   };
 
-  handleHexPress = (event) => {
-    const hex = this.state.hex;
-    if (event.nativeEvent.which === 13) {
-      let color = null;
-
-      if (Color.isValidHex(hex)) {
-        color = new Color(hex);
-      }
-
-      if (color !== null) {
-        this.setState({
-          color,
-          hex,
-        });
-        this.props.onChange(color, false);
-      }
-    }
-  };
-
-  handleHexChange = (event) => {
-    const hex = event.target.value;
-
+  /**
+    onchange 记录临时修改到 state.css，
+    onPress\onBlur 将临时修改校验：
+      通过：同步进 state.color，以及通知父组件，
+      不通过：将错误的 state.css 用 color 替换
+   */
+  handleCssChange = (event) => {
+    const css = event.target.value;
     this.setState({
-      hex,
+      css,
     });
+  };
+  handleCssPress = (event) => {
+    const css = this.state.css;
+    if (event.nativeEvent.which === 13) {
+      this.syncCssFinalVal(css);
+    }
+  };
+  handleCssBlur = () => {
+    const css = this.state.css;
+    this.syncCssFinalVal(css);
+  };
+  syncCssFinalVal = (css) => {
+    let color = this.state.color;
+    let changeSuccess = false;
+    if (Color.isValidHex(css)) {
+      color = new Color(css);
+      changeSuccess = true;
+    }
+    if (changeSuccess) {
+      this.setState({
+        color,
+        css: color.css,
+      });
+      this.props.onChange(color, false);
+    } else {
+      this.setState({
+        css: color.css,
+      });
+    }
   };
 
   handleModeChange = (event) => {
@@ -203,7 +244,7 @@ export default class SelectParams extends React.Component {
                 onKeyPress={this.handleHexPress}
                 onBlur={this.handleHexBlur}
                 onChange={this.handleHexChange}
-                value={this.state.hex.toLowerCase()}
+                value={this.state.hex.toUpperCase()}
               />
             </div>
 
@@ -215,11 +256,10 @@ export default class SelectParams extends React.Component {
           <div className={`${prefixCls}-value-css`}>
             <input
               type="text"
-              maxLength="6"
-              // onKeyPress={this.handleHexPress}
-              // onBlur={this.handleHexBlur}
-              // onChange={this.handleHexChange}
-              value={this.state.color.toRgbString()}
+              onKeyPress={this.handleCssPress}
+              onBlur={this.handleCssBlur}
+              onChange={this.handleCssChange}
+              value={this.state.css}
             />
           </div>
         );
