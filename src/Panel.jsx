@@ -116,10 +116,7 @@ export default class Panel extends React.Component {
    * @param  {Object}  color      tiny-color instance
    */
   handleChange = (color) => {
-    const { alpha } = this.state;
-    color.alpha = alpha;
-
-    this.setState({ color });
+    this.setState({ color, alpha: color.alpha });
     this.props.onChange({
       color: color.toHexString(),
       alpha: color.alpha,
