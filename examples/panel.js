@@ -41,10 +41,10 @@ ReactDOM.render(
     <hr />
     <ColorPickerPanel
       alpha={80}
-      color={'#477898'}
+      color={'hsl(203, 36, 44)'}
       onChange={onChange}
       onAbsorption={onAbsorption}
-      mode="HEX"
+      mode="HSL"
     />
   </div>,
   document.getElementById('__react-content')
