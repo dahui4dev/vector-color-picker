@@ -17,6 +17,11 @@ export default class SelectParams extends React.Component {
       hex: props.color.hex,
       css: props.color.css,
       color: props.color, // instanceof tinycolor 最终都以此值为准
+      viewChannel: {
+        RGB: props.color.RGB,
+        HSL: props.color.HSL,
+        HSB: props.color.HSB,
+      },
     };
   }
 
@@ -27,6 +32,11 @@ export default class SelectParams extends React.Component {
       color: nextColor,
       hex: nextColor.hex,
       css: nextColor.css,
+      viewChannel: {
+        RGB: nextColor.RGB,
+        HSL: nextColor.HSL,
+        HSB: nextColor.HSB,
+      },
     });
   }
 
@@ -209,20 +219,60 @@ export default class SelectParams extends React.Component {
   };
 
   handleColorChannelChange = (index, event) => {
-    const value = this.getChannelInRange(event.target.value, index);
-    const { mode } = this.state;
+    const inputVal = event.target.value;
+    const { mode, viewChannel } = this.state;
+    const channelArr3 = Array.from(viewChannel[mode]);
+    // eslint-ignore
+    const temp =
+      ['S', 'B', 'L'].indexOf(mode[index]) !== -1
+        ? parseInt(inputVal, 10) / 100
+        : parseInt(inputVal, 10);
+    channelArr3[index] = mode === 'RGB' ? parseInt(inputVal, 10) : temp;
+
+    this.setState({
+      viewChannel: {
+        ...viewChannel,
+        [mode]: channelArr3,
+      },
+    });
+  };
+  handleColorChannelPress = (index, event) => {
+    if (event.nativeEvent.which === 13) {
+      this.syncColorChannelFinalVal(index);
+    }
+  };
+  handleColorChannelBlur = (index) => {
+    this.syncColorChannelFinalVal(index);
+  };
+  syncColorChannelFinalVal = (index) => {
+    const { mode, color, viewChannel } = this.state;
     const channel = mode[index];
+    const channelArr3 = viewChannel[mode];
+    let viewVal = channelArr3[index];
+    if (isNaN(viewVal)) {
+      viewVal = color[mode][index];
+    }
+    // eslint 报错
+    const temp =
+      ['S', 'B', 'L'].indexOf(mode[index]) !== -1
+        ? percentage(viewVal)
+        : parseInt(viewVal, 10);
+    const realVal = mode === 'RGB' ? parseInt(viewVal, 10) : temp;
 
-    const color = this.updateColorByChanel(channel, value);
-
+    const rightValue = this.getChannelInRange(realVal, index);
+    const colorObj = this.updateColorByChanel(channel, rightValue);
     this.setState(
       {
-        hex: color.hex,
-        css: color.css,
-        color,
+        hex: colorObj.hex,
+        css: colorObj.css,
+        viewChannel: {
+          RGB: colorObj.RGB,
+          HSL: colorObj.HSL,
+          HSB: colorObj.HSB,
+        },
       },
       () => {
-        this.props.onChange(color, false);
+        this.props.onChange(colorObj, false);
       }
     );
   };
@@ -230,9 +280,8 @@ export default class SelectParams extends React.Component {
   renderInput() {
     const prefixCls = this.getPrefixCls();
     const { enableAlpha } = this.props;
-    const { mode, color } = this.state;
-
-    const colorChannel = color[mode];
+    const { mode, viewChannel } = this.state;
+    let colorChannel = [];
 
     switch (mode) {
       case 'HEX':
@@ -265,91 +314,34 @@ export default class SelectParams extends React.Component {
           </div>
         );
       case 'RGB':
+        colorChannel = [...viewChannel[mode]];
         return (
           <React.Fragment>
-            <div className={`${prefixCls}-value-rgb`}>
-              <input
-                type="number"
-                ref="channel_0"
-                value={colorChannel[0]}
-                onChange={this.handleColorChannelChange.bind(null, 0)}
-              />
-              <input
-                type="number"
-                ref="channel_1"
-                value={colorChannel[1]}
-                onChange={this.handleColorChannelChange.bind(null, 1)}
-              />
-              <input
-                type="number"
-                ref="channel_2"
-                value={colorChannel[2]}
-                onChange={this.handleColorChannelChange.bind(null, 2)}
-              />
-            </div>
-
+            {this.renderChannelInput(`${prefixCls}-value-rgb`, colorChannel)}
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
       case 'HSL':
-        colorChannel[0] = parseInt(colorChannel[0], 10);
+        colorChannel = [...viewChannel[mode]];
+        colorChannel[0] = Math.round(colorChannel[0]);
         colorChannel[1] = percentage(colorChannel[1]);
         colorChannel[2] = percentage(colorChannel[2]);
 
         return (
           <React.Fragment>
-            <div className={`${prefixCls}-value-hsl`}>
-              <input
-                type="number"
-                ref="channel_0"
-                value={colorChannel[0]}
-                onChange={this.handleColorChannelChange.bind(null, 0)}
-              />
-              <input
-                type="number"
-                ref="channel_1"
-                value={colorChannel[1]}
-                onChange={this.handleColorChannelChange.bind(null, 1)}
-              />
-              <input
-                type="number"
-                ref="channel_2"
-                value={colorChannel[2]}
-                onChange={this.handleColorChannelChange.bind(null, 2)}
-              />
-            </div>
-
+            {this.renderChannelInput(`${prefixCls}-value-hsl`, colorChannel)}
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
       case 'HSB':
-        colorChannel[0] = parseInt(colorChannel[0], 10);
+        colorChannel = [...viewChannel[mode]];
+        colorChannel[0] = Math.round(colorChannel[0]);
         colorChannel[1] = percentage(colorChannel[1]);
         colorChannel[2] = percentage(colorChannel[2]);
 
         return (
           <React.Fragment>
-            <div className={`${prefixCls}-value-hsb`}>
-              <input
-                type="number"
-                ref="channel_0"
-                value={colorChannel[0]}
-                onChange={this.handleColorChannelChange.bind(null, 0)}
-              />
-              <input
-                type="number"
-                ref="channel_1"
-                value={colorChannel[1]}
-                onChange={this.handleColorChannelChange.bind(null, 1)}
-              />
-              <input
-                type="number"
-                ref="channel_2"
-                value={colorChannel[2]}
-                onChange={this.handleColorChannelChange.bind(null, 2)}
-              />
-            </div>
-
+            {this.renderChannelInput(`${prefixCls}-value-hsb`, colorChannel)}
             {enableAlpha && this.renderAlphaInput()}
           </React.Fragment>
         );
@@ -369,6 +361,45 @@ export default class SelectParams extends React.Component {
         value={`${Math.round(this.props.alpha)}%`}
         onChange={this.handleAlphaHandler}
       />
+    );
+  }
+
+  /**
+   * 渲染：RGB、HSL、HSB 三种模式
+   * @param className
+   * @param colorChannel
+   * @returns {JSX.Element}
+   */
+  renderChannelInput(className, colorChannel) {
+    return (
+      <React.Fragment>
+        <div className={className}>
+          <input
+            type="number"
+            ref="channel_0"
+            value={colorChannel[0]}
+            onKeyPress={this.handleColorChannelPress.bind(null, 0)}
+            onBlur={this.handleColorChannelBlur.bind(null, 0)}
+            onChange={this.handleColorChannelChange.bind(null, 0)}
+          />
+          <input
+            type="number"
+            ref="channel_1"
+            value={colorChannel[1]}
+            onKeyPress={this.handleColorChannelPress.bind(null, 1)}
+            onBlur={this.handleColorChannelBlur.bind(null, 1)}
+            onChange={this.handleColorChannelChange.bind(null, 1)}
+          />
+          <input
+            type="number"
+            ref="channel_2"
+            value={colorChannel[2]}
+            onKeyPress={this.handleColorChannelPress.bind(null, 2)}
+            onBlur={this.handleColorChannelBlur.bind(null, 2)}
+            onChange={this.handleColorChannelChange.bind(null, 2)}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 
-import Color from './helpers/color';
+import tinycolor from 'tinycolor2';
 
 const WIDTH = 200;
 const HEIGHT = 150;
@@ -162,7 +162,7 @@ export default class Board extends React.Component {
       v: 1,
     };
 
-    const hueColor = new Color(hueHsv).toHexString();
+    const hueColor = tinycolor(hueHsv).toHexString();
 
     let xRel = 0;
     let yRel = 0;
