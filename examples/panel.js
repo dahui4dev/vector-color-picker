@@ -56,20 +56,20 @@ webpackJsonp([2],{
 	  _react2.default.createElement(_vectorColorPicker.Panel
 	  // enableAlpha={false}
 	  , { alpha: 100,
-	    color: 'hsv(0, 100%, 1%)',
+	    color: 'rgb(186, 104, 134)',
 	    onChange: onChange,
 	    onBlur: onBlur,
 	    onFocus: onFocus,
 	    onAbsorption: onAbsorption,
-	    mode: 'HSB'
+	    mode: 'CSS'
 	  }),
 	  _react2.default.createElement('hr', null),
 	  _react2.default.createElement(_vectorColorPicker.Panel, {
 	    alpha: 80,
-	    color: '#477898',
+	    color: 'hsl(203, 36, 44)',
 	    onChange: onChange,
 	    onAbsorption: onAbsorption,
-	    mode: 'HEX'
+	    mode: 'HSL'
 	  })
 	), document.getElementById('__react-content'));
 

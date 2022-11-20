@@ -37973,11 +37973,7 @@
 	  };
 	
 	  this.handleChange = function (color) {
-	    var alpha = _this3.state.alpha;
-	
-	    color.alpha = alpha;
-	
-	    _this3.setState({ color: color });
+	    _this3.setState({ color: color, alpha: color.alpha });
 	    _this3.props.onChange({
 	      color: color.toHexString(),
 	      alpha: color.alpha
@@ -38113,6 +38109,11 @@
 	    get: function get() {
 	      return this.color.toHex();
 	    }
+	  }, {
+	    key: 'css',
+	    get: function get() {
+	      return this.color.toRgbString();
+	    }
 	
 	    // 色相
 	
@@ -38180,7 +38181,7 @@
 	      this.color = (0, _tinycolor2.default)({
 	        h: this.hue,
 	        s: value,
-	        v: this.lightness
+	        l: this.lightness
 	      });
 	
 	      this.initRgb();
@@ -39524,9 +39525,9 @@
 	
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 	
-	var _color = __webpack_require__(144);
+	var _tinycolor = __webpack_require__(145);
 	
-	var _color2 = _interopRequireDefault(_color);
+	var _tinycolor2 = _interopRequireDefault(_tinycolor);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39692,7 +39693,7 @@
 	      v: 1
 	    };
 	
-	    var hueColor = new _color2.default(hueHsv).toHexString();
+	    var hueColor = (0, _tinycolor2.default)(hueHsv).toHexString();
 	
 	    var xRel = 0;
 	    var yRel = 0;
@@ -40130,6 +40131,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _react = __webpack_require__(3);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -40153,6 +40156,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -40194,49 +40199,82 @@
 	      return _this.props.rootPrefixCls + '-params';
 	    };
 	
+	    _this.handleHexChange = function (event) {
+	      var hex = event.target.value;
+	      _this.setState({
+	        hex: hex
+	      });
+	    };
+	
 	    _this.handleHexBlur = function () {
 	      var hex = _this.state.hex;
-	
-	      var color = null;
-	
-	      if (_color2.default.isValidHex(hex)) {
-	        color = new _color2.default(hex);
-	      }
-	
-	      if (color !== null) {
-	        _this.setState({
-	          color: color,
-	          hex: hex
-	        });
-	        _this.props.onChange(color, false);
-	      }
+	      _this.syncHexFinalVal(hex);
 	    };
 	
 	    _this.handleHexPress = function (event) {
 	      var hex = _this.state.hex;
 	      if (event.nativeEvent.which === 13) {
-	        var color = null;
-	
-	        if (_color2.default.isValidHex(hex)) {
-	          color = new _color2.default(hex);
-	        }
-	
-	        if (color !== null) {
-	          _this.setState({
-	            color: color,
-	            hex: hex
-	          });
-	          _this.props.onChange(color, false);
-	        }
+	        _this.syncHexFinalVal(hex);
 	      }
 	    };
 	
-	    _this.handleHexChange = function (event) {
-	      var hex = event.target.value;
+	    _this.syncHexFinalVal = function (hex) {
+	      var color = _this.state.color;
+	      var changeSuccess = false;
+	      if (_color2.default.isValidHex(hex)) {
+	        color = new _color2.default(hex);
+	        changeSuccess = true;
+	      }
+	      if (changeSuccess) {
+	        _this.setState({
+	          color: color,
+	          hex: hex
+	        });
+	        _this.props.onChange(color, false);
+	      } else {
+	        _this.setState({
+	          hex: color.hex
+	        });
+	      }
+	    };
 	
+	    _this.handleCssChange = function (event) {
+	      var css = event.target.value;
 	      _this.setState({
-	        hex: hex
+	        css: css
 	      });
+	    };
+	
+	    _this.handleCssPress = function (event) {
+	      var css = _this.state.css;
+	      if (event.nativeEvent.which === 13) {
+	        _this.syncCssFinalVal(css);
+	      }
+	    };
+	
+	    _this.handleCssBlur = function () {
+	      var css = _this.state.css;
+	      _this.syncCssFinalVal(css);
+	    };
+	
+	    _this.syncCssFinalVal = function (css) {
+	      var color = _this.state.color;
+	      var changeSuccess = false;
+	      if (_color2.default.isValidHex(css)) {
+	        color = new _color2.default(css);
+	        changeSuccess = true;
+	      }
+	      if (changeSuccess) {
+	        _this.setState({
+	          color: color,
+	          css: color.css
+	        });
+	        _this.props.onChange(color, false);
+	      } else {
+	        _this.setState({
+	          css: color.css
+	        });
+	      }
 	    };
 	
 	    _this.handleModeChange = function (event) {
@@ -40299,25 +40337,72 @@
 	    };
 	
 	    _this.handleColorChannelChange = function (index, event) {
-	      var value = _this.getChannelInRange(event.target.value, index);
-	      var mode = _this.state.mode;
+	      var inputVal = event.target.value;
+	      var _this$state = _this.state,
+	          mode = _this$state.mode,
+	          viewChannel = _this$state.viewChannel;
 	
-	      var channel = mode[index];
-	
-	      var color = _this.updateColorByChanel(channel, value);
+	      var channelArr3 = Array.from(viewChannel[mode]);
+	      // eslint-ignore
+	      var temp = ['S', 'B', 'L'].indexOf(mode[index]) !== -1 ? parseInt(inputVal, 10) / 100 : parseInt(inputVal, 10);
+	      channelArr3[index] = mode === 'RGB' ? parseInt(inputVal, 10) : temp;
 	
 	      _this.setState({
-	        hex: color.hex,
-	        color: color
+	        viewChannel: _extends({}, viewChannel, _defineProperty({}, mode, channelArr3))
+	      });
+	    };
+	
+	    _this.handleColorChannelPress = function (index, event) {
+	      if (event.nativeEvent.which === 13) {
+	        _this.syncColorChannelFinalVal(index);
+	      }
+	    };
+	
+	    _this.handleColorChannelBlur = function (index) {
+	      _this.syncColorChannelFinalVal(index);
+	    };
+	
+	    _this.syncColorChannelFinalVal = function (index) {
+	      var _this$state2 = _this.state,
+	          mode = _this$state2.mode,
+	          color = _this$state2.color,
+	          viewChannel = _this$state2.viewChannel;
+	
+	      var channel = mode[index];
+	      var channelArr3 = viewChannel[mode];
+	      var viewVal = channelArr3[index];
+	      if (isNaN(viewVal)) {
+	        viewVal = color[mode][index];
+	      }
+	      // eslint 报错
+	      var temp = ['S', 'B', 'L'].indexOf(mode[index]) !== -1 ? (0, _percentage2.default)(viewVal) : parseInt(viewVal, 10);
+	      var realVal = mode === 'RGB' ? parseInt(viewVal, 10) : temp;
+	
+	      var rightValue = _this.getChannelInRange(realVal, index);
+	      var colorObj = _this.updateColorByChanel(channel, rightValue);
+	      _this.setState({
+	        hex: colorObj.hex,
+	        css: colorObj.css,
+	        viewChannel: {
+	          RGB: colorObj.RGB,
+	          HSL: colorObj.HSL,
+	          HSB: colorObj.HSB
+	        }
 	      }, function () {
-	        _this.props.onChange(color, false);
+	        _this.props.onChange(colorObj, false);
 	      });
 	    };
 	
 	    _this.state = {
 	      mode: props.mode,
 	      hex: props.color.hex,
-	      color: props.color // instanceof tinycolor
+	      css: props.color.css,
+	      color: props.color, // instanceof tinycolor 最终都以此值为准
+	      viewChannel: {
+	        RGB: props.color.RGB,
+	        HSL: props.color.HSL,
+	        HSB: props.color.HSB
+	      }
 	    };
 	    return _this;
 	  }
@@ -40328,19 +40413,40 @@
 	
 	    this.setState({
 	      color: nextColor,
-	      hex: nextColor.hex
+	      hex: nextColor.hex,
+	      css: nextColor.css,
+	      viewChannel: {
+	        RGB: nextColor.RGB,
+	        HSL: nextColor.HSL,
+	        HSB: nextColor.HSB
+	      }
 	    });
 	  };
+	
+	  /**
+	   onchange 记录临时修改到 state.hex，
+	   onPress\onBlur 将临时修改校验：
+	      通过：同步进 state.color，以及通知父组件，
+	      不通过：将错误的 state.hex 用 color 替换
+	   */
+	
+	
+	  /**
+	    onchange 记录临时修改到 state.css，
+	    onPress\onBlur 将临时修改校验：
+	      通过：同步进 state.color，以及通知父组件，
+	      不通过：将错误的 state.css 用 color 替换
+	   */
+	
 	
 	  SelectParams.prototype.renderInput = function renderInput() {
 	    var prefixCls = this.getPrefixCls();
 	    var enableAlpha = this.props.enableAlpha;
 	    var _state = this.state,
 	        mode = _state.mode,
-	        color = _state.color;
+	        viewChannel = _state.viewChannel;
 	
-	
-	    var colorChannel = color[mode];
+	    var colorChannel = [];
 	
 	    switch (mode) {
 	      case 'HEX':
@@ -40356,7 +40462,7 @@
 	              onKeyPress: this.handleHexPress,
 	              onBlur: this.handleHexBlur,
 	              onChange: this.handleHexChange,
-	              value: this.state.hex.toLowerCase()
+	              value: this.state.hex.toUpperCase()
 	            })
 	          ),
 	          enableAlpha && this.renderAlphaInput()
@@ -40367,103 +40473,42 @@
 	          { className: prefixCls + '-value-css' },
 	          _react2.default.createElement('input', {
 	            type: 'text',
-	            maxLength: '6'
-	            // onKeyPress={this.handleHexPress}
-	            // onBlur={this.handleHexBlur}
-	            // onChange={this.handleHexChange}
-	            , value: this.state.color.toRgbString()
+	            onKeyPress: this.handleCssPress,
+	            onBlur: this.handleCssBlur,
+	            onChange: this.handleCssChange,
+	            value: this.state.css
 	          })
 	        );
 	      case 'RGB':
+	        colorChannel = [].concat(_toConsumableArray(viewChannel[mode]));
 	        return _react2.default.createElement(
 	          _react2.default.Fragment,
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: prefixCls + '-value-rgb' },
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_0',
-	              value: colorChannel[0],
-	              onChange: this.handleColorChannelChange.bind(null, 0)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_1',
-	              value: colorChannel[1],
-	              onChange: this.handleColorChannelChange.bind(null, 1)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_2',
-	              value: colorChannel[2],
-	              onChange: this.handleColorChannelChange.bind(null, 2)
-	            })
-	          ),
+	          this.renderChannelInput(prefixCls + '-value-rgb', colorChannel),
 	          enableAlpha && this.renderAlphaInput()
 	        );
 	      case 'HSL':
-	        colorChannel[0] = parseInt(colorChannel[0], 10);
+	        colorChannel = [].concat(_toConsumableArray(viewChannel[mode]));
+	        colorChannel[0] = Math.round(colorChannel[0]);
 	        colorChannel[1] = (0, _percentage2.default)(colorChannel[1]);
 	        colorChannel[2] = (0, _percentage2.default)(colorChannel[2]);
 	
 	        return _react2.default.createElement(
 	          _react2.default.Fragment,
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: prefixCls + '-value-hsl' },
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_0',
-	              value: colorChannel[0],
-	              onChange: this.handleColorChannelChange.bind(null, 0)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_1',
-	              value: colorChannel[1],
-	              onChange: this.handleColorChannelChange.bind(null, 1)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_2',
-	              value: colorChannel[2],
-	              onChange: this.handleColorChannelChange.bind(null, 2)
-	            })
-	          ),
+	          this.renderChannelInput(prefixCls + '-value-hsl', colorChannel),
 	          enableAlpha && this.renderAlphaInput()
 	        );
 	      case 'HSB':
-	        colorChannel[0] = parseInt(colorChannel[0], 10);
+	        colorChannel = [].concat(_toConsumableArray(viewChannel[mode]));
+	        colorChannel[0] = Math.round(colorChannel[0]);
 	        colorChannel[1] = (0, _percentage2.default)(colorChannel[1]);
 	        colorChannel[2] = (0, _percentage2.default)(colorChannel[2]);
 	
 	        return _react2.default.createElement(
 	          _react2.default.Fragment,
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: prefixCls + '-value-hsb' },
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_0',
-	              value: colorChannel[0],
-	              onChange: this.handleColorChannelChange.bind(null, 0)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_1',
-	              value: colorChannel[1],
-	              onChange: this.handleColorChannelChange.bind(null, 1)
-	            }),
-	            _react2.default.createElement('input', {
-	              type: 'number',
-	              ref: 'channel_2',
-	              value: colorChannel[2],
-	              onChange: this.handleColorChannelChange.bind(null, 2)
-	            })
-	          ),
+	          this.renderChannelInput(prefixCls + '-value-hsb', colorChannel),
 	          enableAlpha && this.renderAlphaInput()
 	        );
 	
@@ -40481,6 +40526,49 @@
 	      value: Math.round(this.props.alpha) + '%',
 	      onChange: this.handleAlphaHandler
 	    });
+	  };
+	
+	  /**
+	   * 渲染：RGB、HSL、HSB 三种模式
+	   * @param className
+	   * @param colorChannel
+	   * @returns {JSX.Element}
+	   */
+	
+	
+	  SelectParams.prototype.renderChannelInput = function renderChannelInput(className, colorChannel) {
+	    return _react2.default.createElement(
+	      _react2.default.Fragment,
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: className },
+	        _react2.default.createElement('input', {
+	          type: 'number',
+	          ref: 'channel_0',
+	          value: colorChannel[0],
+	          onKeyPress: this.handleColorChannelPress.bind(null, 0),
+	          onBlur: this.handleColorChannelBlur.bind(null, 0),
+	          onChange: this.handleColorChannelChange.bind(null, 0)
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'number',
+	          ref: 'channel_1',
+	          value: colorChannel[1],
+	          onKeyPress: this.handleColorChannelPress.bind(null, 1),
+	          onBlur: this.handleColorChannelBlur.bind(null, 1),
+	          onChange: this.handleColorChannelChange.bind(null, 1)
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'number',
+	          ref: 'channel_2',
+	          value: colorChannel[2],
+	          onKeyPress: this.handleColorChannelPress.bind(null, 2),
+	          onBlur: this.handleColorChannelBlur.bind(null, 2),
+	          onChange: this.handleColorChannelChange.bind(null, 2)
+	        })
+	      )
+	    );
 	  };
 	
 	  SelectParams.prototype.render = function render() {
@@ -40648,13 +40736,19 @@
 
 /***/ }),
 /* 153 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	var _color = __webpack_require__(144);
+	
+	var _color2 = _interopRequireDefault(_color);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	module.exports = function validationColor(props, propName, componentName) {
-	  if (props[propName] && !/^#[0-9a-fA-F]{3,6}$/.test(props[propName])) {
-	    return new Error(componentName + ".props." + propName + " Validation failed!");
+	  if (props[propName] && !_color2.default.isValidHex(props[propName])) {
+	    return new Error(componentName + '.props.' + propName + ' Validation failed!');
 	  }
 	};
 
