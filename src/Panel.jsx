@@ -25,6 +25,7 @@ export default class Panel extends React.Component {
         : Math.min(props.alpha, props.defaultAlpha);
 
     const color = new Color(props.color || props.defaultColor);
+    color.alpha = alpha;
     const mode = props.mode;
 
     this.state = {
@@ -123,6 +124,16 @@ export default class Panel extends React.Component {
     });
   };
 
+  handleChangeWithoutAlpha = (color) => {
+    color.alpha = this.state.alpha;
+    this.setState({ color, alpha: this.state.alpha }, () => {
+      this.props.onChange({
+        color: color.toHexString(),
+        alpha: this.state.alpha,
+      });
+    });
+  };
+
   handleModeChange = (mode) => {
     this.setState({ mode });
   };
@@ -150,14 +161,14 @@ export default class Panel extends React.Component {
             rootPrefixCls={prefixCls}
             color={color}
             mode={this.state.mode}
-            onChange={this.handleChange}
+            onChange={this.handleChangeWithoutAlpha}
           />
           <div className={wrapClasses}>
             <div className={`${prefixCls}-wrap-ribbon`}>
               <Ribbon
                 rootPrefixCls={prefixCls}
                 color={color}
-                onChange={this.handleChange}
+                onChange={this.handleChangeWithoutAlpha}
               />
             </div>
             {enableAlpha && (
