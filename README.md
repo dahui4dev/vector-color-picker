@@ -4,7 +4,8 @@
 
 基于 [rc-color-picker](https://github.com/react-component/color-picker) 二次开发的 `Vector Color Picker`.
 
-增加 `"HEX", "CSS", "RGB", "HSL", "HSB"` 模式切换。
+1. 支持 `"HEX", "CSS", "RGB", "HSL", "HSB"` 色彩类型，以及模式切换。
+2. 色彩类型支持手动修改，onchange 只改变显示，回车或失焦时，校验并保存数据，校验不合法恢复修改前数值。
 
 [![npm version](http://img.shields.io/npm/v/vector-color-picker.svg)](https://www.npmjs.org/package/vector-color-picker)
 [![npm download](http://img.shields.io/npm/dm/vector-color-picker.svg)](https://www.npmjs.org/package/vector-color-picker)
