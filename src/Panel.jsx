@@ -102,14 +102,18 @@ export default class Panel extends React.Component {
     const { color } = this.state;
     color.alpha = alpha;
 
-    this.setState({
-      alpha,
-      color,
-    });
-    this.props.onChange({
-      color: color.toHexString(),
-      alpha,
-    });
+    this.setState(
+      {
+        alpha,
+        color,
+      },
+      () => {
+        this.props.onChange({
+          color: color.toHexString(),
+          alpha,
+        });
+      }
+    );
   };
 
   /**
@@ -117,10 +121,11 @@ export default class Panel extends React.Component {
    * @param  {Object}  color      tiny-color instance
    */
   handleChange = (color) => {
-    this.setState({ color, alpha: color.alpha });
-    this.props.onChange({
-      color: color.toHexString(),
-      alpha: color.alpha,
+    this.setState({ color, alpha: color.alpha }, () => {
+      this.props.onChange({
+        color: color.toHexString(),
+        alpha: color.alpha,
+      });
     });
   };
 
