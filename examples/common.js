@@ -29189,7 +29189,7 @@
 	
 	var _Panel2 = _interopRequireDefault(_Panel);
 	
-	var _placements = __webpack_require__(154);
+	var _placements = __webpack_require__(155);
 	
 	var _placements2 = _interopRequireDefault(_placements);
 	
@@ -37746,7 +37746,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _validationColor = __webpack_require__(153);
+	var _validationColor = __webpack_require__(154);
 	
 	var _validationColor2 = _interopRequireDefault(_validationColor);
 	
@@ -40153,6 +40153,10 @@
 	
 	var _percentage2 = _interopRequireDefault(_percentage);
 	
+	var _isNumber = __webpack_require__(153);
+	
+	var _isNumber2 = _interopRequireDefault(_isNumber);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
@@ -40199,6 +40203,19 @@
 	      return _this.props.rootPrefixCls + '-params';
 	    };
 	
+	    _this.handleModeChange = function (event) {
+	      var mode = event.target.value;
+	
+	      var modeIndex = modesMap.indexOf(mode) % modesMap.length;
+	      mode = modesMap[modeIndex];
+	
+	      _this.setState({
+	        mode: mode
+	      }, function () {
+	        _this.props.onModeChange(mode);
+	      });
+	    };
+	
 	    _this.handleHexChange = function (event) {
 	      var hex = event.target.value;
 	      _this.setState({
@@ -40229,8 +40246,10 @@
 	        _this.setState({
 	          color: color,
 	          hex: hex
+	        }, function () {
+	          color.alpha = _this.props.alpha;
+	          _this.props.onChange(color, false);
 	        });
-	        _this.props.onChange(color, false);
 	      } else {
 	        _this.setState({
 	          hex: color.hex
@@ -40277,29 +40296,40 @@
 	      }
 	    };
 	
-	    _this.handleModeChange = function (event) {
-	      var mode = event.target.value;
-	
-	      var modeIndex = modesMap.indexOf(mode) % modesMap.length;
-	      mode = modesMap[modeIndex];
-	
+	    _this.handleAlphaChange = function (event) {
+	      var alpha = event.target.value;
 	      _this.setState({
-	        mode: mode
-	      }, function () {
-	        _this.props.onModeChange(mode);
+	        alpha: alpha
 	      });
 	    };
 	
-	    _this.handleAlphaHandler = function (event) {
-	      var alpha = parseInt(event.target.value.replaceAll('%', ''), 10);
+	    _this.handleAlphaBlur = function () {
+	      var alpha = _this.state.alpha;
+	      _this.syncAlphaFinalVal(alpha);
+	    };
 	
+	    _this.handleAlphaPress = function (event) {
+	      var alpha = _this.state.alpha;
+	      if (event.nativeEvent.which === 13) {
+	        _this.syncAlphaFinalVal(alpha);
+	      }
+	    };
+	
+	    _this.syncAlphaFinalVal = function (alpha) {
+	      alpha = parseInt(alpha, 10);
+	      if (!(0, _isNumber2.default)(alpha)) {
+	        alpha = _this.props.alpha;
+	      }
 	      if (isNaN(alpha)) {
 	        alpha = 0;
 	      }
 	      alpha = Math.max(0, alpha);
 	      alpha = Math.min(alpha, 100);
-	
-	      _this.props.onAlphaChange(alpha);
+	      _this.setState({
+	        alpha: alpha
+	      }, function () {
+	        _this.props.onAlphaChange(alpha);
+	      });
 	    };
 	
 	    _this.updateColorByChanel = function (channel, value) {
@@ -40389,15 +40419,17 @@
 	          HSB: colorObj.HSB
 	        }
 	      }, function () {
+	        colorObj.alpha = _this.props.alpha;
 	        _this.props.onChange(colorObj, false);
 	      });
 	    };
 	
 	    _this.state = {
 	      mode: props.mode,
+	      color: props.color, // instanceof tinycolor 最终都以此值为准
+	      alpha: props.alpha + '%',
 	      hex: props.color.hex,
 	      css: props.color.css,
-	      color: props.color, // instanceof tinycolor 最终都以此值为准
 	      viewChannel: {
 	        RGB: props.color.RGB,
 	        HSL: props.color.HSL,
@@ -40408,11 +40440,13 @@
 	  }
 	
 	  SelectParams.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	    var nextColor = nextProps.color;
+	    var nextColor = nextProps.color,
+	        nextAlpha = nextProps.alpha;
 	
 	
 	    this.setState({
 	      color: nextColor,
+	      alpha: nextAlpha + '%',
 	      hex: nextColor.hex,
 	      css: nextColor.css,
 	      viewChannel: {
@@ -40523,8 +40557,10 @@
 	    return _react2.default.createElement('input', {
 	      type: 'text',
 	      className: prefixCls + '-value-alpha',
-	      value: Math.round(this.props.alpha) + '%',
-	      onChange: this.handleAlphaHandler
+	      value: this.state.alpha,
+	      onKeyPress: this.handleAlphaPress,
+	      onBlur: this.handleAlphaBlur,
+	      onChange: this.handleAlphaChange
 	    });
 	  };
 	
@@ -40736,6 +40772,21 @@
 
 /***/ }),
 /* 153 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = isNumber;
+	function isNumber(val) {
+	  return !isNaN(Number(val));
+	}
+	module.exports = exports['default'];
+
+/***/ }),
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40753,7 +40804,7 @@
 	};
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports) {
 
 	'use strict';
