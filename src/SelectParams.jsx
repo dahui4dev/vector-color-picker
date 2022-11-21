@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import Color from './helpers/color';
 import percentage from './helpers/percentage';
+import isNumber from './helpers/isNumber';
 
 const modesMap = ['HEX', 'CSS', 'RGB', 'HSL', 'HSB'];
 
@@ -14,9 +15,10 @@ export default class SelectParams extends React.Component {
     // 管理 input 的状态
     this.state = {
       mode: props.mode,
+      color: props.color, // instanceof tinycolor 最终都以此值为准
+      alpha: `${props.alpha}%`,
       hex: props.color.hex,
       css: props.color.css,
-      color: props.color, // instanceof tinycolor 最终都以此值为准
       viewChannel: {
         RGB: props.color.RGB,
         HSL: props.color.HSL,
@@ -26,10 +28,11 @@ export default class SelectParams extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { color: nextColor } = nextProps;
+    const { color: nextColor, alpha: nextAlpha } = nextProps;
 
     this.setState({
       color: nextColor,
+      alpha: `${nextAlpha}%`,
       hex: nextColor.hex,
       css: nextColor.css,
       viewChannel: {
@@ -73,6 +76,22 @@ export default class SelectParams extends React.Component {
     return `${this.props.rootPrefixCls}-params`;
   };
 
+  handleModeChange = (event) => {
+    let mode = event.target.value;
+
+    const modeIndex = modesMap.indexOf(mode) % modesMap.length;
+    mode = modesMap[modeIndex];
+
+    this.setState(
+      {
+        mode,
+      },
+      () => {
+        this.props.onModeChange(mode);
+      }
+    );
+  };
+
   /**
    onchange 记录临时修改到 state.hex，
    onPress\onBlur 将临时修改校验：
@@ -103,11 +122,16 @@ export default class SelectParams extends React.Component {
       changeSuccess = true;
     }
     if (changeSuccess) {
-      this.setState({
-        color,
-        hex,
-      });
-      this.props.onChange(color, false);
+      this.setState(
+        {
+          color,
+          hex,
+        },
+        () => {
+          color.alpha = this.props.alpha;
+          this.props.onChange(color, false);
+        }
+      );
     } else {
       this.setState({
         hex: color.hex,
@@ -157,32 +181,40 @@ export default class SelectParams extends React.Component {
     }
   };
 
-  handleModeChange = (event) => {
-    let mode = event.target.value;
-
-    const modeIndex = modesMap.indexOf(mode) % modesMap.length;
-    mode = modesMap[modeIndex];
-
-    this.setState(
-      {
-        mode,
-      },
-      () => {
-        this.props.onModeChange(mode);
-      }
-    );
+  handleAlphaChange = (event) => {
+    const alpha = event.target.value;
+    this.setState({
+      alpha,
+    });
   };
-
-  handleAlphaHandler = (event) => {
-    let alpha = parseInt(event.target.value.replaceAll('%', ''), 10);
-
+  handleAlphaBlur = () => {
+    const alpha = this.state.alpha;
+    this.syncAlphaFinalVal(alpha);
+  };
+  handleAlphaPress = (event) => {
+    const alpha = this.state.alpha;
+    if (event.nativeEvent.which === 13) {
+      this.syncAlphaFinalVal(alpha);
+    }
+  };
+  syncAlphaFinalVal = (alpha) => {
+    alpha = parseInt(alpha, 10);
+    if (!isNumber(alpha)) {
+      alpha = this.props.alpha;
+    }
     if (isNaN(alpha)) {
       alpha = 0;
     }
     alpha = Math.max(0, alpha);
     alpha = Math.min(alpha, 100);
-
-    this.props.onAlphaChange(alpha);
+    this.setState(
+      {
+        alpha,
+      },
+      () => {
+        this.props.onAlphaChange(alpha);
+      }
+    );
   };
 
   updateColorByChanel = (channel, value) => {
@@ -272,6 +304,7 @@ export default class SelectParams extends React.Component {
         },
       },
       () => {
+        colorObj.alpha = this.props.alpha;
         this.props.onChange(colorObj, false);
       }
     );
@@ -358,8 +391,10 @@ export default class SelectParams extends React.Component {
       <input
         type="text"
         className={`${prefixCls}-value-alpha`}
-        value={`${Math.round(this.props.alpha)}%`}
-        onChange={this.handleAlphaHandler}
+        value={this.state.alpha}
+        onKeyPress={this.handleAlphaPress}
+        onBlur={this.handleAlphaBlur}
+        onChange={this.handleAlphaChange}
       />
     );
   }
