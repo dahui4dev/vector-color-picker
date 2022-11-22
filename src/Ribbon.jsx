@@ -79,11 +79,17 @@ export default class Ribbon extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
     const hue = this.props.color.hue;
-    const per = (hue / 360) * 100;
+    const per = (hue / 360) * 96;
 
     return (
       <div className={prefixCls}>
-        <span ref="point" style={{ left: `${per}%` }} />
+        <span
+          ref="point"
+          style={{
+            left: `${per + 2}%`,
+            backgroundColor: `${this.props.color.toHexString()}`,
+          }}
+        />
         <div
           className={`${prefixCls}-handler`}
           onMouseDown={this.onMouseDown}

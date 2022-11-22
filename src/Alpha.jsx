@@ -1,6 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
+import tinycolor from 'tinycolor2';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 
 function rgbaColor(r, g, b, a) {
@@ -89,6 +90,14 @@ export default class Alpha extends React.Component {
 
   render() {
     const prefixCls = this.getPrefixCls();
+    const per = (this.props.alpha / 100) * 96;
+    let spanColor = this.props.color.toRgbString();
+
+    // 控制器背景色用现有透明度加白色
+    spanColor = tinycolor('#ffffff')
+      .setAlpha(1 - this.props.alpha / 100)
+      .toRgbString();
+
     return (
       <div className={prefixCls}>
         <div
@@ -96,7 +105,12 @@ export default class Alpha extends React.Component {
           className={`${prefixCls}-bg`}
           style={{ background: this.getBackground() }}
         />
-        <span style={{ left: `${this.props.alpha}%` }} />
+        <span
+          style={{
+            left: `${per + 2}%`,
+            backgroundColor: `${spanColor}`,
+          }}
+        />
         <div
           className={`${prefixCls}-handler`}
           onMouseDown={this.onMouseDown}

@@ -6,7 +6,7 @@ import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import tinycolor from 'tinycolor2';
 
 const WIDTH = 200;
-const HEIGHT = 150;
+const HEIGHT = 140;
 
 export default class Board extends React.Component {
   constructor(props) {
@@ -195,7 +195,13 @@ export default class Board extends React.Component {
           </div>
         )}
 
-        <span style={{ left: `${xRel}%`, top: `${yRel}%` }} />
+        <span
+          style={{
+            left: `${xRel}%`,
+            top: `${yRel}%`,
+            backgroundColor: `${color.toRgbString()}`,
+          }}
+        />
 
         <div
           className={`${prefixCls}-handler`}
