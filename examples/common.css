@@ -107,14 +107,14 @@
 .vector-color-picker-panel-board span {
   position: absolute;
   border-radius: 10px;
-  border: 1px solid #fff;
-  width: 9px;
-  height: 9px;
-  margin: -4px 0 0 -4px;
+  border: 3px solid #fff;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
   left: -999px;
   top: -999px;
-  box-shadow: 0 0 1px rgba(120, 120, 120, 0.7);
-  z-index: 2;
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3));
+  z-index: 5;
 }
 .vector-color-picker-panel-board-hsv {
   width: 214px;
@@ -189,7 +189,7 @@
 .vector-color-picker-panel-board-handler {
   box-shadow: 0 0 2px #808080 inset;
   border-radius: 5px;
-  cursor: crosshair;
+  cursor: default;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -214,14 +214,14 @@
 }
 .vector-color-picker-panel-ribbon span {
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 5px;
-  border: 1px solid #000000;
-  padding: 1px 0;
-  margin-left: -2px;
-  background-color: #fff;
-  border-radius: 3px;
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  border: 3px solid #ffffff;
+  border-radius: 8px;
+  margin-left: -8px;
+  left: -8px;
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3));
 }
 .vector-color-picker-panel-ribbon-handler {
   position: absolute;
@@ -251,14 +251,14 @@
 }
 .vector-color-picker-panel-alpha span {
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 5px;
-  border: 1px solid #000000;
-  padding: 1px 0;
-  margin-left: -2px;
-  background-color: #fff;
-  border-radius: 3px;
+  top: -2px;
+  height: 16px;
+  width: 16px;
+  border: 3px solid #FFFFFF;
+  border-radius: 8px;
+  margin-left: -8px;
+  left: -8px;
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3));
 }
 .vector-color-picker-panel-alpha-handler {
   position: absolute;

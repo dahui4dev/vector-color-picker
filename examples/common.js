@@ -39553,7 +39553,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
 	var WIDTH = 200;
-	var HEIGHT = 150;
+	var HEIGHT = 140;
 	
 	var Board = function (_React$Component) {
 	  _inherits(Board, _React$Component);
@@ -39739,7 +39739,13 @@
 	        _react2.default.createElement('div', { className: prefixCls + '-hsv-value' }),
 	        _react2.default.createElement('div', { className: prefixCls + '-hsv-saturation' })
 	      ),
-	      _react2.default.createElement('span', { style: { left: xRel + '%', top: yRel + '%' } }),
+	      _react2.default.createElement('span', {
+	        style: {
+	          left: xRel + '%',
+	          top: yRel + '%',
+	          backgroundColor: '' + color.toRgbString()
+	        }
+	      }),
 	      _react2.default.createElement('div', {
 	        className: prefixCls + '-handler',
 	        onMouseDown: this.onBoardMouseDown,
@@ -39953,12 +39959,18 @@
 	  Ribbon.prototype.render = function render() {
 	    var prefixCls = this.getPrefixCls();
 	    var hue = this.props.color.hue;
-	    var per = hue / 360 * 100;
+	    var per = hue / 360 * 96;
 	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: prefixCls },
-	      _react2.default.createElement('span', { ref: 'point', style: { left: per + '%' } }),
+	      _react2.default.createElement('span', {
+	        ref: 'point',
+	        style: {
+	          left: per + 2 + '%',
+	          backgroundColor: '' + this.props.color.toHexString()
+	        }
+	      }),
 	      _react2.default.createElement('div', {
 	        className: prefixCls + '-handler',
 	        onMouseDown: this.onMouseDown
@@ -39998,6 +40010,10 @@
 	var _propTypes = __webpack_require__(23);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _tinycolor = __webpack_require__(145);
+	
+	var _tinycolor2 = _interopRequireDefault(_tinycolor);
 	
 	var _addEventListener = __webpack_require__(72);
 	
@@ -40104,6 +40120,12 @@
 	
 	  Alpha.prototype.render = function render() {
 	    var prefixCls = this.getPrefixCls();
+	    var per = this.props.alpha / 100 * 96;
+	    var spanColor = this.props.color.toRgbString();
+	
+	    // 控制器背景色用现有透明度加白色
+	    spanColor = (0, _tinycolor2.default)('#ffffff').setAlpha(1 - this.props.alpha / 100).toRgbString();
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: prefixCls },
@@ -40112,7 +40134,12 @@
 	        className: prefixCls + '-bg',
 	        style: { background: this.getBackground() }
 	      }),
-	      _react2.default.createElement('span', { style: { left: this.props.alpha + '%' } }),
+	      _react2.default.createElement('span', {
+	        style: {
+	          left: per + 2 + '%',
+	          backgroundColor: '' + spanColor
+	        }
+	      }),
 	      _react2.default.createElement('div', {
 	        className: prefixCls + '-handler',
 	        onMouseDown: this.onMouseDown
