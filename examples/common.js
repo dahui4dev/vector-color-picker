@@ -37781,6 +37781,7 @@
 	    var alpha = typeof props.alpha === 'undefined' ? props.defaultAlpha : Math.min(props.alpha, props.defaultAlpha);
 	
 	    var color = new _color2.default(props.color || props.defaultColor);
+	    color.alpha = alpha;
 	    var mode = props.mode;
 	
 	    _this.state = {
@@ -37859,7 +37860,7 @@
 	          rootPrefixCls: prefixCls,
 	          color: color,
 	          mode: this.state.mode,
-	          onChange: this.handleChange
+	          onChange: this.handleChangeWithoutAlpha
 	        }),
 	        _react2.default.createElement(
 	          'div',
@@ -37870,7 +37871,7 @@
 	            _react2.default.createElement(_Ribbon2.default, {
 	              rootPrefixCls: prefixCls,
 	              color: color,
-	              onChange: this.handleChange
+	              onChange: this.handleChangeWithoutAlpha
 	            })
 	          ),
 	          enableAlpha && _react2.default.createElement(
@@ -37965,18 +37966,30 @@
 	    _this3.setState({
 	      alpha: alpha,
 	      color: color
-	    });
-	    _this3.props.onChange({
-	      color: color.toHexString(),
-	      alpha: alpha
+	    }, function () {
+	      _this3.props.onChange({
+	        color: color.toHexString(),
+	        alpha: alpha
+	      });
 	    });
 	  };
 	
 	  this.handleChange = function (color) {
-	    _this3.setState({ color: color, alpha: color.alpha });
-	    _this3.props.onChange({
-	      color: color.toHexString(),
-	      alpha: color.alpha
+	    _this3.setState({ color: color, alpha: color.alpha }, function () {
+	      _this3.props.onChange({
+	        color: color.toHexString(),
+	        alpha: color.alpha
+	      });
+	    });
+	  };
+	
+	  this.handleChangeWithoutAlpha = function (color) {
+	    color.alpha = _this3.state.alpha;
+	    _this3.setState({ color: color, alpha: _this3.state.alpha }, function () {
+	      _this3.props.onChange({
+	        color: color.toHexString(),
+	        alpha: _this3.state.alpha
+	      });
 	    });
 	  };
 	
