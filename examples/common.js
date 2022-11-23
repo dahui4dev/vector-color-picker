@@ -37895,10 +37895,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          {
-	            className: prefixCls + '-wrap',
-	            style: { height: 40, marginTop: 10 }
-	          },
+	          { className: prefixCls + '-params-wrap' },
 	          _react2.default.createElement(_SelectParams2.default, {
 	            rootPrefixCls: prefixCls,
 	            color: color,
@@ -39744,7 +39741,8 @@
 	          left: xRel + '%',
 	          top: yRel + '%',
 	          backgroundColor: '' + color.toRgbString()
-	        }
+	        },
+	        onMouseDown: this.onBoardMouseDown
 	      }),
 	      _react2.default.createElement('div', {
 	        className: prefixCls + '-handler',
@@ -39866,6 +39864,10 @@
 	
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 	
+	var _tinycolor = __webpack_require__(145);
+	
+	var _tinycolor2 = _interopRequireDefault(_tinycolor);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
@@ -39960,6 +39962,11 @@
 	    var prefixCls = this.getPrefixCls();
 	    var hue = this.props.color.hue;
 	    var per = hue / 360 * 96;
+	    var hueColor = (0, _tinycolor2.default)({
+	      h: hue,
+	      s: 1,
+	      v: 1
+	    });
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -39968,7 +39975,7 @@
 	        ref: 'point',
 	        style: {
 	          left: per + 2 + '%',
-	          backgroundColor: '' + this.props.color.toHexString()
+	          backgroundColor: '' + hueColor.toHexString()
 	        }
 	      }),
 	      _react2.default.createElement('div', {
@@ -40667,7 +40674,7 @@
 	        _react2.default.createElement(
 	          'select',
 	          {
-	            className: prefixCls + '-select',
+	            className: prefixCls + '-type-select',
 	            value: mode,
 	            onChange: this.handleModeChange
 	          },
@@ -40696,12 +40703,12 @@
 	            { value: 'HSB' },
 	            'HSB'
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: prefixCls + '-value' },
-	          this.renderInput()
 	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: prefixCls + '-value' },
+	        this.renderInput()
 	      )
 	    );
 	  };
