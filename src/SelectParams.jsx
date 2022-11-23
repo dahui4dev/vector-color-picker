@@ -453,7 +453,7 @@ export default class SelectParams extends React.Component {
       <div className={paramsClasses}>
         <div className={`${prefixCls}-type`}>
           <select
-            className={`${prefixCls}-select`}
+            className={`${prefixCls}-type-select`}
             value={mode}
             onChange={this.handleModeChange}
           >
@@ -463,9 +463,8 @@ export default class SelectParams extends React.Component {
             <option value="HSL">HSL</option>
             <option value="HSB">HSB</option>
           </select>
-
-          <div className={`${prefixCls}-value`}>{this.renderInput()}</div>
         </div>
+        <div className={`${prefixCls}-value`}>{this.renderInput()}</div>
       </div>
     );
   }
