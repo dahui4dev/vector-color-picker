@@ -201,6 +201,7 @@ export default class Board extends React.Component {
             top: `${yRel}%`,
             backgroundColor: `${color.toRgbString()}`,
           }}
+          onMouseDown={this.onBoardMouseDown}
         />
 
         <div
