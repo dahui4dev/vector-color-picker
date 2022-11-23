@@ -1,25 +1,33 @@
 .@{prefixClass}-panel-absorption {
-  height: 30px;
-  width: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  height: 28px;
+  width: 28px;
+  padding: 6px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #f4f4f5;
+  cursor: pointer;
 
   span {
-    background-image: url('data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20viewBox%3D%220%200%201024%201024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M691.2%20120.83c58.37-58.37%20153.6-58.37%20211.97%200%2056.32%2056.32%2058.37%20145.92%206.65%20204.8l-6.65%207.17-123.39%20123.9%2026.11%2026.63c24.58%2024.58%2024.58%2064%200%2088.06-22.53%2022.53-58.88%2024.06-82.95%204.61l-5.12-4.61-26.62-26.62-349.7%20349.69c-23.04%2023.04-52.22%2037.38-83.96%2042.5l-10.76%201.02-116.22%209.22a50.07%2050.07%200%200%201-53.76-48.13v-5.63l9.22-116.22c2.56-32.26%2015.36-62.46%2035.84-87.04l7.68-7.68%20349.69-349.7-26.62-26.62c-24.58-24.58-24.58-64%200-88.07%2022.53-22.53%2058.88-24.06%2083.45-4.61l4.61%204.61%2026.63%2026.11%20123.9-123.39z%20m-176.64%20268.8l-339.46%20338.95c-4.1%204.1-8.19%208.7-11.26%2013.82h238.08l232.45-232.96-119.81-119.81z%22%20fill%3D%22%23333333%22%20p-id%3D%220%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOS41MDAwOCA0LjAwMDAyTDExLjc1MDEgMS43NTAwMkMxMi40NDA0IDEuMDU5NjYgMTMuNTU5NyAxLjA1OTY3IDE0LjI1MDEgMS43NTAwMkMxNC45NDA0IDIuNDQwMzggMTQuOTQwNCAzLjU1OTY3IDE0LjI1MDEgNC4yNTAwMkwxMi4wMDAxIDYuNTAwMDJMMTIuNTAwMSA3LjAwMDAyQzEyLjc3NjIgNy4yNzYxNiAxMi43NzYyIDcuNzIzODggMTIuNTAwMSA4LjAwMDAyQzEyLjIyMzkgOC4yNzYxNiAxMS43NzYyIDguMjc2MTYgMTEuNTAwMSA4LjAwMDAyTDExLjEwMzYgNy42MDM1NUw1LjI2Nzc3IDEzLjQzOTRDNC45MDg3OCAxMy43OTg0IDQuNDIxODkgMTQgMy45MTQyMSAxNEMzLjU2NzE0IDE0IDMuMjQxNjMgMTMuOTA3NyAyLjk2MDk1IDEzLjc0NjJMMi44NTM1NSAxMy44NTM2QzIuNjU4MjkgMTQuMDQ4OCAyLjM0MTcxIDE0LjA0ODggMi4xNDY0NSAxMy44NTM2QzEuOTUxMTggMTMuNjU4MyAxLjk1MTE4IDEzLjM0MTcgMi4xNDY0NSAxMy4xNDY1TDIuMjUzODUgMTMuMDM5MUMyLjA5MjM2IDEyLjc1ODQgMiAxMi40MzI5IDIgMTIuMDg1OEMyIDExLjU3ODEgMi4yMDE2OCAxMS4wOTEzIDIuNTYwNjYgMTAuNzMyM0w4LjM5NjUgNC44OTY0NEw4LjAwMDA4IDQuNTAwMDJDNy43MjM5MyA0LjIyMzg4IDcuNzIzOTMgMy43NzYxNiA4LjAwMDA4IDMuNTAwMDJDOC4yNzYyMiAzLjIyMzg4IDguNzIzOTMgMy4yMjM4OCA5LjAwMDA4IDMuNTAwMDJMOS41MDAwOCA0LjAwMDAyWk0xMC4zOTY1IDYuODk2NDRMOS4xMDM2IDUuNjAzNTVMMy4yNjc3NyAxMS40Mzk0QzMuMDk2MzIgMTEuNjEwOCAzIDExLjg0MzQgMyAxMi4wODU4QzMgMTIuNTkwNyAzLjQwOTMxIDEzIDMuOTE0MjEgMTNDNC4xNTY2OCAxMyA0LjM4OTIxIDEyLjkwMzcgNC41NjA2NiAxMi43MzIzTDEwLjM5NjUgNi44OTY0NFoiIGZpbGw9IiMxODE4MUIiLz4KPC9zdmc+Cg==');
     background-repeat: no-repeat;
-    background-size: 20px 20px;
+    background-size: 16px 16px;
     background-position: center center, 50%, 50%;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-  }
-  span:hover {
-    background-color: #e2e2e2;
-  }
-  span {
+    background-color: transparent;
+
     position: absolute;
     display: block;
-    height: 100%;
-    width: 30px;
-    border-radius: 2px;
+    height: 16px;
+    width: 16px;
+    border-radius: 6px;
   }
+}
+.@{prefixClass}-panel-absorption:hover {
+  background-color: #f4f4f5;
 }
