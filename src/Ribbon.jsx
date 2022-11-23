@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
+import tinycolor from 'tinycolor2';
 
 export default class Ribbon extends React.Component {
   constructor(props) {
@@ -80,6 +81,11 @@ export default class Ribbon extends React.Component {
     const prefixCls = this.getPrefixCls();
     const hue = this.props.color.hue;
     const per = (hue / 360) * 96;
+    const hueColor = tinycolor({
+      h: hue,
+      s: 1,
+      v: 1,
+    });
 
     return (
       <div className={prefixCls}>
@@ -87,7 +93,7 @@ export default class Ribbon extends React.Component {
           ref="point"
           style={{
             left: `${per + 2}%`,
-            backgroundColor: `${this.props.color.toHexString()}`,
+            backgroundColor: `${hueColor.toHexString()}`,
           }}
         />
         <div
