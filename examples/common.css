@@ -32,7 +32,7 @@
 .vector-color-picker-panel-params-wrap {
   position: relative;
   width: 100%;
-  height: 64px;
+  height: 36px;
   margin: 10px 0;
   padding: 0 8px;
 }
@@ -284,6 +284,18 @@
 }
 .vector-color-picker-panel-params {
   font-size: 12px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .vector-color-picker-panel-params-type {
   display: -ms-flexbox;
@@ -299,7 +311,6 @@
   -ms-flex-pack: justify;
       justify-content: space-between;
   overflow: hidden;
-  width: 100%;
   height: 28px;
 }
 .vector-color-picker-panel-params-type-select {
@@ -310,7 +321,7 @@
       -ms-user-select: text;
           user-select: text;
   text-align: left;
-  margin: 0;
+  margin-right: 8px;
   border: none;
   background-color: transparent;
   font-style: normal;
@@ -326,7 +337,7 @@
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
-  text-align: left;
+  text-align: center;
   padding: 6px;
   border-radius: 2px;
   border: none;
